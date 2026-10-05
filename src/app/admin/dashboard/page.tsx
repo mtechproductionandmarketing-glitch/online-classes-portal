@@ -6,12 +6,33 @@ export default function AdminDashboard() {
   const [isAuthed, setIsAuthed] = useState(false)
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken')
-    if (!token) {
-      window.location.href = '/admin'
-    } else {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('adminToken')
+      const session = localStorage.getItem('adminSession')
+
+      if (!token || !session) {
+        window.location.href = '/admin'
+        return
+      }
+
+      try {
+        const parsedSession = JSON.parse(session)
+        // Verify session is still valid
+        if (parsedSession.expires_at && new Date(parsedSession.expires_at * 1000) < new Date()) {
+          localStorage.removeItem('adminToken')
+          localStorage.removeItem('adminSession')
+          window.location.href = '/admin'
+          return
+        }
+      } catch (error) {
+        window.location.href = '/admin'
+        return
+      }
+
       setIsAuthed(true)
     }
+
+    checkAuth()
   }, [])
 
   const handleLogout = () => {

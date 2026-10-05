@@ -20,22 +20,22 @@ export default function AdminLogin() {
         return
       }
 
-      // Demo authentication - test credentials
-      const testUsers = [
-        { email: 'admin@paf-iast.edu.pk', password: 'Admin@123' },
-        { email: 'director@paf-iast.edu.pk', password: 'Director@123' },
-      ]
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      })
 
-      const user = testUsers.find(u => u.email === email && u.password === password)
+      const data = await response.json()
 
-      if (user) {
-        // Store auth token in localStorage
-        localStorage.setItem('adminToken', JSON.stringify({ email, role: 'admin' }))
-        // Redirect to dashboard
-        window.location.href = '/admin/dashboard'
-      } else {
-        setError('Invalid email or password. Try: admin@paf-iast.edu.pk / Admin@123')
+      if (!response.ok) {
+        setError(data.error || 'Login failed. Invalid credentials.')
+        return
       }
+
+      localStorage.setItem('adminToken', JSON.stringify(data.user))
+      localStorage.setItem('adminSession', JSON.stringify(data.session))
+      window.location.href = '/admin/dashboard'
     } finally {
       setLoading(false)
     }
