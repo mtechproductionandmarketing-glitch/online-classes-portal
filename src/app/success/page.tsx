@@ -57,29 +57,21 @@ function SuccessPageContent() {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-white)' }}>
+      {/* Header Branding Line */}
+      <div style={{ backgroundColor: '#F3F5F9', padding: '8px 24px', borderBottom: '1px solid #E8EAEF', textAlign: 'center' }}>
+        <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0', letterSpacing: '0.5px' }}>
+          Pak-Austria Fachhochschule · School of Computing Sciences
+        </p>
+      </div>
+
       {/* Navigation Bar */}
       <nav style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <img
-              src="/logos/paf-iast-logo.png"
-              alt="PAF-IAST"
-              style={{ height: '48px', objectFit: 'contain' }}
-            />
-            <div style={{ borderLeft: '1px solid #D1D5DB', paddingLeft: '12px' }}>
-              <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0 0 2px 0' }}>
-                Pak-Austria Fachhochschule
-              </p>
-              <p style={{ fontSize: '11px', color: '#C46A1C', margin: '0' }}>
-                School of Computing Sciences
-              </p>
-            </div>
-            <img
-              src="/logos/scs-logo.jpg"
-              alt="SCS"
-              style={{ height: '48px', objectFit: 'contain' }}
-            />
-          </div>
+          <img
+            src="/logos/paf-iast-logo.png"
+            alt="PAF-IAST"
+            style={{ height: '48px', objectFit: 'contain' }}
+          />
           <p style={{ fontSize: '14px', fontWeight: '600', color: '#9CA3AF', marginLeft: 'auto' }}>
             Online Classes Portal
           </p>
