@@ -22,7 +22,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  @apply font-barlow font-bold;
+  @apply font-bold;
   color: var(--paf-dark-blue);
 }
 
@@ -75,7 +75,7 @@ a {
 }
 
 .form-section-title {
-  @apply text-lg font-barlow font-bold text-paf-dark-blue mb-4;
+  @apply text-lg font-bold text-paf-dark-blue mb-4;
 }
 
 .form-row {
@@ -88,7 +88,8 @@ a {
 }
 
 .data-table {
-  @apply w-full border-collapse;
+  @apply w-full;
+  border-collapse: collapse;
 }
 
 .data-table th {
@@ -113,7 +114,7 @@ a {
 }
 
 .card-title {
-  @apply text-lg font-barlow font-bold text-paf-dark-blue;
+  @apply text-lg font-bold text-paf-dark-blue;
 }
 
 .card-body {
@@ -228,7 +229,7 @@ a {
 
 /* Utility classes */
 .text-truncate {
-  @apply overflow-hidden text-overflow-ellipsis whitespace-nowrap;
+  @apply overflow-hidden text-ellipsis whitespace-nowrap;
 }
 
 .centered-content {
@@ -244,7 +245,7 @@ a {
 }
 
 .section-title {
-  @apply text-2xl md:text-3xl font-barlow font-bold text-paf-dark-blue mb-2;
+  @apply text-2xl md:text-3xl font-bold text-paf-dark-blue mb-2;
 }
 
 .section-subtitle {
