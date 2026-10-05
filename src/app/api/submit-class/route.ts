@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { data, error } = await supabaseServer.rpc('submit_online_class', {
+    const rpcParams = {
       p_class_date: class_date,
       p_faculty_name: faculty_name,
       p_course_title: course_title,
@@ -82,7 +82,9 @@ export async function POST(request: NextRequest) {
       p_teams_link: teams_link,
       p_remarks: remarks || null,
       p_idempotency_key: idempotency_key,
-    })
+    }
+
+    const { data, error } = await supabaseServer.rpc('submit_online_class', rpcParams as any)
 
     if (error) {
       console.error('Supabase error:', error)
