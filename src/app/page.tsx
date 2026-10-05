@@ -6,11 +6,26 @@ export default function Home() {
       {/* Navigation Bar */}
       <nav style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-          <img
-            src="/logos/paf-iast-logo.png"
-            alt="PAF-IAST"
-            style={{ height: '48px', objectFit: 'contain' }}
-          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <img
+              src="/logos/paf-iast-logo.png"
+              alt="PAF-IAST"
+              style={{ height: '48px', objectFit: 'contain' }}
+            />
+            <div style={{ borderLeft: '1px solid #D1D5DB', paddingLeft: '12px' }}>
+              <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0 0 2px 0' }}>
+                Pak-Austria Fachhochschule
+              </p>
+              <p style={{ fontSize: '11px', color: '#C46A1C', margin: '0' }}>
+                School of Computing Sciences
+              </p>
+            </div>
+            <img
+              src="/logos/scs-logo.jpg"
+              alt="SCS"
+              style={{ height: '48px', objectFit: 'contain' }}
+            />
+          </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '32px', marginLeft: 'auto' }}>
             <p style={{ fontSize: '14px', fontWeight: '600', color: '#9CA3AF' }}>
               Online Classes Portal
@@ -59,10 +74,25 @@ export default function Home() {
 
       {/* Footer */}
       <footer style={{ backgroundColor: 'white', borderTop: '1px solid #E8EAEF', padding: '40px 24px', textAlign: 'center' }}>
-        <p style={{ color: '#9CA3AF', fontSize: '14px', marginBottom: '8px' }}>
-          Pak-Austria Fachhochschule: Institute of Applied Sciences and Technology · Online Classes Recording & Tracking Portal
+        <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '12px' }}>
+          <img
+            src="/logos/paf-iast-logo.png"
+            alt="PAF-IAST"
+            style={{ height: '32px', objectFit: 'contain' }}
+          />
+          <img
+            src="/logos/scs-logo.jpg"
+            alt="SCS"
+            style={{ height: '32px', objectFit: 'contain' }}
+          />
+        </div>
+        <p style={{ color: '#2C5AA0', fontSize: '13px', fontWeight: '600', marginBottom: '4px' }}>
+          Pak-Austria Fachhochschule · School of Computing Sciences
         </p>
-        <p style={{ color: '#9CA3AF', fontSize: '14px' }}>
+        <p style={{ color: '#9CA3AF', fontSize: '13px', marginBottom: '8px' }}>
+          Institute of Applied Sciences and Technology · Online Classes Recording & Tracking Portal
+        </p>
+        <p style={{ color: '#9CA3AF', fontSize: '12px' }}>
           © 2026 PAF-IAST. All rights reserved.
         </p>
       </footer>

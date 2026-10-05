@@ -60,11 +60,26 @@ function SuccessPageContent() {
       {/* Navigation Bar */}
       <nav style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-          <img
-            src="/logos/paf-iast-logo.png"
-            alt="PAF-IAST"
-            style={{ height: '48px', objectFit: 'contain' }}
-          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <img
+              src="/logos/paf-iast-logo.png"
+              alt="PAF-IAST"
+              style={{ height: '48px', objectFit: 'contain' }}
+            />
+            <div style={{ borderLeft: '1px solid #D1D5DB', paddingLeft: '12px' }}>
+              <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0 0 2px 0' }}>
+                Pak-Austria Fachhochschule
+              </p>
+              <p style={{ fontSize: '11px', color: '#C46A1C', margin: '0' }}>
+                School of Computing Sciences
+              </p>
+            </div>
+            <img
+              src="/logos/scs-logo.jpg"
+              alt="SCS"
+              style={{ height: '48px', objectFit: 'contain' }}
+            />
+          </div>
           <p style={{ fontSize: '14px', fontWeight: '600', color: '#9CA3AF', marginLeft: 'auto' }}>
             Online Classes Portal
           </p>
@@ -210,9 +225,11 @@ function SuccessPageContent() {
             </div>
           </div>
           <div className="text-center text-sm text-paf-gray">
+            <p style={{ fontWeight: '600', color: '#2C5AA0', marginBottom: '4px' }}>
+              Pak-Austria Fachhochschule · School of Computing Sciences
+            </p>
             <p>
-              Pak-Austria Fachhochschule: Institute of Applied Sciences and Technology · Online Classes
-              Recording & Tracking Portal
+              Institute of Applied Sciences and Technology · Online Classes Recording & Tracking Portal
             </p>
             <p className="mt-4">© 2026 PAF-IAST. All rights reserved.</p>
           </div>
