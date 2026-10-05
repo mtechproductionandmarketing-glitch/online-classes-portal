@@ -63,7 +63,7 @@ export default function SuccessPage() {
               PAF
             </div>
             <div>
-              <h1 className="text-lg md:text-xl font-barlow font-bold text-paf-dark-blue">
+              <h1 className="text-lg md:text-xl font-bold text-paf-dark-blue">
                 Online Classes Recording & Tracking Portal
               </h1>
             </div>
@@ -82,7 +82,7 @@ export default function SuccessPage() {
               </div>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-barlow font-bold text-paf-dark-blue mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-paf-dark-blue mb-2">
               Online class submitted
             </h1>
             <p className="text-paf-gray text-lg">
@@ -148,7 +148,7 @@ export default function SuccessPage() {
           {/* Info boxes */}
           <div className="grid md:grid-cols-2 gap-6 mb-8">
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-              <h3 className="font-barlow font-bold text-paf-blue mb-3">What's next?</h3>
+              <h3 className="font-bold text-paf-blue mb-3">What's next?</h3>
               <ul className="text-sm text-paf-gray space-y-2">
                 <li>✓ Your class is immediately visible to administrators</li>
                 <li>✓ The record will be included in their reports and statistics</li>
@@ -157,7 +157,7 @@ export default function SuccessPage() {
             </div>
 
             <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-              <h3 className="font-barlow font-bold text-green-700 mb-3">Troubleshooting</h3>
+              <h3 className="font-bold text-green-700 mb-3">Troubleshooting</h3>
               <ul className="text-sm text-paf-gray space-y-2">
                 <li>✓ Lost your Reference ID? Contact administration</li>
                 <li>✓ Need to edit? Contact your administrator</li>
