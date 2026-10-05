@@ -59,24 +59,36 @@ export default function ReportsPage() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#F9FAFB' }}>
-      {/* Header */}
-      <div style={{ backgroundColor: '#F3F5F9', padding: '8px 24px', textAlign: 'center', borderBottom: '1px solid #E8EAEF' }}>
-        <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>
+      <style>{`
+        @media (max-width: 767px) {
+          .mobile-header-text { font-size: 10px !important; }
+          .mobile-logo { height: 36px !important; }
+          .mobile-container { flex-direction: column !important; }
+          .mobile-sidebar { width: 100% !important; border-right: none !important; border-bottom: 1px solid #E8EAEF !important; padding: 12px !important; }
+          .mobile-nav { flex-direction: row !important; gap: 6px !important; overflow-x: auto !important; }
+          .mobile-nav a { padding: 8px 12px !important; font-size: 12px !important; white-space: nowrap !important; }
+          .mobile-main { padding: 16px 12px !important; }
+          .mobile-main h1 { font-size: 20px !important; margin-bottom: 12px !important; }
+          .mobile-grid { grid-template-columns: 1fr !important; gap: 16px !important; }
+          .mobile-card { padding: 16px !important; }
+          .mobile-button { font-size: 14px !important; padding: 10px 12px !important; }
+        }
+      `}</style>
+
+      <div style={{ backgroundColor: '#F3F5F9', padding: '8px 16px', textAlign: 'center', borderBottom: '1px solid #E8EAEF' }}>
+        <p className="mobile-header-text" style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>
           Pak-Austria Fachhochschule · School of Computing Sciences
         </p>
       </div>
 
-      <header style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '16px 24px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" style={{ height: '48px', objectFit: 'contain' }} />
-          <Link href="/admin/dashboard" style={{ textDecoration: 'none', color: '#2C5AA0', fontWeight: '600', fontSize: '14px' }}>← Back</Link>
-        </div>
+      <header style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" className="mobile-logo" style={{ height: '48px', objectFit: 'contain' }} />
+        <Link href="/admin/dashboard" style={{ textDecoration: 'none', color: '#2C5AA0', fontWeight: '600', fontSize: '14px' }}>← Back</Link>
       </header>
 
-      <div style={{ display: 'flex', minHeight: 'calc(100vh - 100px)' }}>
-        {/* Sidebar */}
-        <aside style={{ width: '220px', backgroundColor: 'white', borderRight: '1px solid #E8EAEF', padding: '24px' }}>
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+      <div className="mobile-container" style={{ display: 'flex', minHeight: 'calc(100vh - 100px)' }}>
+        <aside className="mobile-sidebar" style={{ width: '220px', backgroundColor: 'white', borderRight: '1px solid #E8EAEF', padding: '24px' }}>
+          <nav className="mobile-nav" style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
             <Link href="/admin/dashboard" style={{ padding: '12px 16px', color: '#4B5563', textDecoration: 'none', fontSize: '14px', display: 'block', borderRadius: '4px' }}>📊 Dashboard</Link>
             <Link href="/admin/classes" style={{ padding: '12px 16px', color: '#4B5563', textDecoration: 'none', fontSize: '14px', display: 'block', borderRadius: '4px' }}>📋 All Classes</Link>
             <Link href="/admin/reports" style={{ padding: '12px 16px', backgroundColor: '#F3F5F9', color: '#2C5AA0', textDecoration: 'none', fontSize: '14px', display: 'block', borderRadius: '4px', fontWeight: '600' }}>📊 Reports & Export</Link>
@@ -86,18 +98,17 @@ export default function ReportsPage() {
           </nav>
         </aside>
 
-        {/* Main */}
-        <main style={{ flex: 1, padding: '32px 24px' }}>
+        <main className="mobile-main" style={{ flex: 1, padding: '32px 24px' }}>
           <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1A1A1A', marginBottom: '8px' }}>Reports & Export</h1>
           <p style={{ color: '#9CA3AF', marginBottom: '32px' }}>Download your data in various formats</p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
-            {/* CSV Export */}
-            <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
+          <div className="mobile-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '24px' }}>
+            <div className="mobile-card" style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
               <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', marginBottom: '8px' }}>📥 Export as CSV</h3>
               <p style={{ color: '#9CA3AF', marginBottom: '16px', fontSize: '14px' }}>Total records: {totalRecords}</p>
               <button
                 onClick={downloadCSV}
+                className="mobile-button"
                 style={{
                   width: '100%',
                   padding: '12px 16px',
@@ -114,11 +125,11 @@ export default function ReportsPage() {
               </button>
             </div>
 
-            {/* Statistics */}
-            <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
+            <div className="mobile-card" style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
               <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', marginBottom: '8px' }}>📊 Summary Report</h3>
               <p style={{ color: '#9CA3AF', marginBottom: '16px', fontSize: '14px' }}>Quick overview of submissions</p>
               <button
+                className="mobile-button"
                 style={{
                   width: '100%',
                   padding: '12px 16px',
