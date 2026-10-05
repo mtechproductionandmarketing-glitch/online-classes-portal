@@ -46,14 +46,14 @@ export default function AdminLogin() {
       {/* Header Branding Line */}
       <div style={{ backgroundColor: '#F3F5F9', padding: '8px 24px', borderBottom: '1px solid #E8EAEF', textAlign: 'center' }}>
         <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0', letterSpacing: '0.5px' }}>
-          Pak-Austria Fachhochschule · School of Computing Sciences
+          School of Computing Sciences
         </p>
       </div>
 
       {/* Header with Logo */}
       <header style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
-          <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" style={{ height: '48px', objectFit: 'contain' }} />
+          <img src="/logos/scs-logo.jpg" alt="SCS" style={{ height: '48px', objectFit: 'contain' }} />
           <p style={{ fontSize: '14px', fontWeight: '600', color: '#2C5AA0', marginLeft: 'auto' }}>
             Admin Dashboard
           </p>
@@ -100,8 +100,8 @@ export default function AdminLogin() {
             <div className="text-center">
               <div className="flex items-center justify-center gap-4 mb-6">
                 <img
-                  src="/logos/paf-iast-logo.png"
-                  alt="PAF-IAST Logo"
+                  src="/logos/scs-logo.jpg"
+                  alt="SCS Logo"
                   className="h-16"
                   style={{ objectFit: 'contain' }}
                 />
@@ -113,7 +113,7 @@ export default function AdminLogin() {
                 />
               </div>
               <p className="font-bold text-lg mb-1" style={{ color: 'var(--color-primary-blue)' }}>
-                Pak-Austria Fachhochschule
+                School of Computing Sciences
               </p>
               <p className="text-sm font-semibold" style={{ color: 'var(--color-secondary-orange)' }}>
                 School of Computing Sciences

@@ -6,11 +6,11 @@ export default function AuditLogPage() {
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#F9FAFB' }}>
       <div style={{ backgroundColor: '#F3F5F9', padding: '8px 24px', textAlign: 'center', borderBottom: '1px solid #E8EAEF' }}>
-        <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>Pak-Austria Fachhochschule · School of Computing Sciences</p>
+        <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>School of Computing Sciences</p>
       </div>
 
       <header style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '16px 24px' }}>
-        <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" style={{ height: '48px', objectFit: 'contain' }} />
+        <img src="/logos/scs-logo.jpg" alt="SCS" style={{ height: '48px', objectFit: 'contain' }} />
       </header>
 
       <div style={{ display: 'flex', minHeight: 'calc(100vh - 100px)' }}>

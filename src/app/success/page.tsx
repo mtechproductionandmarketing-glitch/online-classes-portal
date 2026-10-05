@@ -60,7 +60,7 @@ function SuccessPageContent() {
       {/* Header Branding Line */}
       <div style={{ backgroundColor: '#F3F5F9', padding: '8px 24px', borderBottom: '1px solid #E8EAEF', textAlign: 'center' }}>
         <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0', letterSpacing: '0.5px' }}>
-          Pak-Austria Fachhochschule · School of Computing Sciences
+          School of Computing Sciences
         </p>
       </div>
 
@@ -68,8 +68,8 @@ function SuccessPageContent() {
       <nav style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
           <img
-            src="/logos/paf-iast-logo.png"
-            alt="PAF-IAST"
+            src="/logos/scs-logo.jpg"
+            alt="SCS"
             style={{ height: '48px', objectFit: 'contain' }}
           />
           <p style={{ fontSize: '14px', fontWeight: '600', color: '#9CA3AF', marginLeft: 'auto' }}>
@@ -205,8 +205,8 @@ function SuccessPageContent() {
           <div className="flex flex-col items-center justify-center gap-8 mb-8">
             <div className="flex gap-8 items-center justify-center flex-wrap">
               <img
-                src="/logos/paf-iast-logo.png"
-                alt="PAF-IAST Logo"
+                src="/logos/scs-logo.jpg"
+                alt="SCS Logo"
                 className="h-16"
               />
               <img
@@ -218,12 +218,12 @@ function SuccessPageContent() {
           </div>
           <div className="text-center text-sm text-paf-gray">
             <p style={{ fontWeight: '600', color: '#2C5AA0', marginBottom: '4px' }}>
-              Pak-Austria Fachhochschule · School of Computing Sciences
+              School of Computing Sciences
             </p>
             <p>
               Institute of Applied Sciences and Technology · Online Classes Recording & Tracking Portal
             </p>
-            <p className="mt-4">© 2026 PAF-IAST. All rights reserved.</p>
+            <p className="mt-4">© 2026 SCS. All rights reserved.</p>
           </div>
         </div>
       </footer>

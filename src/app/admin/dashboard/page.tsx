@@ -80,14 +80,14 @@ export default function AdminDashboard() {
       {/* Header Branding */}
       <div style={{ backgroundColor: '#F3F5F9', padding: '8px 24px', borderBottom: '1px solid #E8EAEF', textAlign: 'center' }}>
         <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>
-          Pak-Austria Fachhochschule · School of Computing Sciences
+          School of Computing Sciences
         </p>
       </div>
 
       {/* Header */}
       <header style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '16px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" style={{ height: '48px', objectFit: 'contain' }} />
+          <img src="/logos/scs-logo.jpg" alt="SCS" style={{ height: '48px', objectFit: 'contain' }} />
           <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
             <h1 style={{ fontSize: '20px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>Admin Dashboard</h1>
             <button

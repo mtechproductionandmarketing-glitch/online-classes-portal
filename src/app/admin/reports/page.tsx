@@ -77,12 +77,12 @@ export default function ReportsPage() {
 
       <div style={{ backgroundColor: '#F3F5F9', padding: '8px 16px', textAlign: 'center', borderBottom: '1px solid #E8EAEF' }}>
         <p className="mobile-header-text" style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>
-          Pak-Austria Fachhochschule · School of Computing Sciences
+          School of Computing Sciences
         </p>
       </div>
 
       <header style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-        <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" className="mobile-logo" style={{ height: '48px', objectFit: 'contain' }} />
+        <img src="/logos/scs-logo.jpg" alt="SCS" className="mobile-logo" style={{ height: '48px', objectFit: 'contain' }} />
         <Link href="/admin/dashboard" style={{ textDecoration: 'none', color: '#2C5AA0', fontWeight: '600', fontSize: '14px' }}>← Back</Link>
       </header>
 
