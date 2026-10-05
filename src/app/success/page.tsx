@@ -198,12 +198,29 @@ function SuccessPageContent() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-paf-blue/20 mt-12 py-6 bg-white/50">
-        <div className="page-container text-center text-sm text-paf-gray">
-          <p>
-            Pak-Austria Fachhochschule: Institute of Applied Sciences and Technology · Online Classes
-            Recording & Tracking Portal
-          </p>
+      <footer className="border-t border-paf-blue/20 mt-12 py-12 bg-white/50">
+        <div className="page-container">
+          <div className="flex flex-col items-center justify-center gap-8 mb-8">
+            <div className="flex gap-8 items-center justify-center flex-wrap">
+              <img
+                src="/logos/paf-iast-logo.png"
+                alt="PAF-IAST Logo"
+                className="h-16"
+              />
+              <img
+                src="/logos/scs-logo.jpg"
+                alt="SCS Logo"
+                className="h-16"
+              />
+            </div>
+          </div>
+          <div className="text-center text-sm text-paf-gray">
+            <p>
+              Pak-Austria Fachhochschule: Institute of Applied Sciences and Technology · Online Classes
+              Recording & Tracking Portal
+            </p>
+            <p className="mt-4">© 2026 PAF-IAST. All rights reserved.</p>
+          </div>
         </div>
       </footer>
     </div>

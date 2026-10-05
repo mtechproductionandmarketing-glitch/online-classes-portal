@@ -59,6 +59,20 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t" style={{ borderColor: 'var(--color-gray-light)' }}>
         <div className="page-container py-12">
+          <div className="flex flex-col items-center justify-center gap-8 mb-8">
+            <div className="flex gap-8 items-center justify-center flex-wrap">
+              <img
+                src="/logos/paf-iast-logo.png"
+                alt="PAF-IAST Logo"
+                className="h-16"
+              />
+              <img
+                src="/logos/scs-logo.jpg"
+                alt="SCS Logo"
+                className="h-16"
+              />
+            </div>
+          </div>
           <div className="text-center text-sm" style={{ color: 'var(--color-gray-medium)' }}>
             <p>
               Pak-Austria Fachhochschule: Institute of Applied Sciences and Technology · Online Classes Recording & Tracking Portal
