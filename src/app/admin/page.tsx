@@ -34,21 +34,10 @@ export default function AdminLogin() {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--color-white)' }}>
       {/* Header with Branding */}
-      <header className="border-b-2" style={{ borderColor: 'var(--color-gray-light)' }}>
-        <div className="px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" className="h-12" />
-            <div className="border-l-2 border-gray-300 pl-6">
-              <p className="font-bold text-sm" style={{ color: 'var(--color-primary-blue)' }}>
-                Pak-Austria Fachhochschule
-              </p>
-              <p className="text-xs" style={{ color: 'var(--color-secondary-orange)' }}>
-                School of Computing Sciences
-              </p>
-            </div>
-            <img src="/logos/scs-logo.jpg" alt="SCS" className="h-12" />
-          </div>
-          <p className="text-sm font-semibold" style={{ color: 'var(--color-primary-blue)' }}>
+      <header style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+          <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" style={{ height: '48px', objectFit: 'contain' }} />
+          <p style={{ fontSize: '14px', fontWeight: '600', color: '#2C5AA0', marginLeft: 'auto' }}>
             Admin Dashboard
           </p>
         </div>

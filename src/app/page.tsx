@@ -4,49 +4,19 @@ export default function Home() {
   return (
     <main>
       {/* Navigation Bar */}
-      <nav className="navbar" style={{ borderBottom: '2px solid var(--color-primary-blue)' }}>
-        <div className="flex items-center justify-between w-full gap-4">
-          {/* Left Logo Section */}
-          <div className="flex items-center gap-6">
-            {/* PAF-IAST Logo */}
-            <img
-              src="/logos/paf-iast-logo.png"
-              alt="PAF-IAST Logo"
-              className="h-12"
-              style={{ objectFit: 'contain' }}
-            />
-
-            {/* Text Branding */}
-            <div className="border-l-2 border-gray-300 pl-6">
-              <p className="font-bold text-sm" style={{ color: 'var(--color-primary-blue)' }}>
-                Pak-Austria Fachhochschule
-              </p>
-              <p className="text-xs" style={{ color: 'var(--color-secondary-orange)' }}>
-                Institute of Applied Sciences and Technology
-              </p>
-              <p className="text-xs font-semibold text-gray-700">
-                School of Computing Sciences
-              </p>
-            </div>
-
-            {/* SCS Logo */}
-            <img
-              src="/logos/scs-logo.jpg"
-              alt="SCS Logo"
-              className="h-12"
-              style={{ objectFit: 'contain' }}
-            />
-          </div>
-
-          {/* Right Side - Title and Admin Link */}
-          <div className="flex items-center gap-6 ml-auto">
-            <div className="text-right hidden sm:block">
-              <p className="text-xs font-semibold" style={{ color: 'var(--color-primary-blue)' }}>
-                Online Classes Portal
-              </p>
-            </div>
-            <a href="/admin" className="nav-link" style={{ backgroundColor: 'var(--color-secondary-orange)', color: 'white' }}>
-              Admin Login
+      <nav style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 24px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+          <img
+            src="/logos/paf-iast-logo.png"
+            alt="PAF-IAST"
+            style={{ height: '48px', objectFit: 'contain' }}
+          />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '32px', marginLeft: 'auto' }}>
+            <p style={{ fontSize: '14px', fontWeight: '600', color: '#9CA3AF' }}>
+              Online Classes Portal
+            </p>
+            <a href="/admin" style={{ fontSize: '14px', fontWeight: '600', color: '#C46A1C', textDecoration: 'none' }}>
+              Admin login
             </a>
           </div>
         </div>
