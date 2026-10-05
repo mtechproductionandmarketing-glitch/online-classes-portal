@@ -148,21 +148,24 @@ export type Database = {
     Functions: {
       submit_online_class: {
         Args: {
-          p_program_name: string
-          p_instructor_name: string
-          p_instructor_email: string
           p_class_date: string
-          p_class_time: string
-          p_class_title: string
-          p_class_description: string
-          p_teams_recording_url: string
+          p_faculty_name: string
+          p_course_title: string
+          p_batch: string
+          p_program: string
+          p_section: string
+          p_start_time: string
           p_duration_minutes: number
-          p_recording_size_mb: number
+          p_teams_link: string
+          p_remarks: string | null
+          p_idempotency_key: string
         }
-        Returns: {
+        Returns: Array<{
+          success: boolean
           reference_id: string
-          id: string
-        }
+          id?: string
+          error?: string
+        }>
       }
       get_next_reference_id: {
         Args: Record<string, never>
