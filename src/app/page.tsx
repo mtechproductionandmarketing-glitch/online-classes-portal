@@ -32,7 +32,7 @@ export default function Home() {
 
       {/* Hero Section with Background Image */}
       <section className="hero-section" style={{
-        backgroundImage: 'linear-gradient(rgba(44, 90, 160, 0.7), rgba(44, 90, 160, 0.7)), url("https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920&h=600&fit=crop")',
+        backgroundImage: 'linear-gradient(rgba(44, 90, 160, 0.7), rgba(44, 90, 160, 0.7)), url("/images/backgrounds/hero-faculty.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}>

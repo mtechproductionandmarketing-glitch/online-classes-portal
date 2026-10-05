@@ -37,7 +37,7 @@ export default function AdminLogin() {
       <div
         className="hidden lg:flex lg:w-1/2 relative"
         style={{
-          backgroundImage: 'linear-gradient(rgba(26, 26, 26, 0.4), rgba(26, 26, 26, 0.4)), url("https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1200&h=900&fit=crop")',
+          backgroundImage: 'linear-gradient(rgba(26, 26, 26, 0.4), rgba(26, 26, 26, 0.4)), url("/images/backgrounds/hero-admin.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
