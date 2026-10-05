@@ -187,7 +187,8 @@ a {
   }
 
   .data-table td:before {
-    @apply content-attr(data-label) absolute left-6 font-bold text-paf-dark-blue;
+    content: attr(data-label);
+    @apply absolute left-6 font-bold text-paf-dark-blue;
   }
 }
 
