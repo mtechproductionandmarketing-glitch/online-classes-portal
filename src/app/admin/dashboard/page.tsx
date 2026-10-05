@@ -1,9 +1,28 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+
+interface ClassRecord {
+  id: string
+  reference_id: string
+  class_date: string
+  faculty_name: string
+  course_title: string
+  program: string
+  duration_minutes: number
+}
 
 export default function AdminDashboard() {
+  const router = useRouter()
   const [isAuthed, setIsAuthed] = useState(false)
+  const [classes, setClasses] = useState<ClassRecord[]>([])
+  const [stats, setStats] = useState({
+    total: 0,
+    today: 0,
+    week: 0,
+    month: 0
+  })
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -17,7 +36,6 @@ export default function AdminDashboard() {
 
       try {
         const parsedSession = JSON.parse(session)
-        // Verify session is still valid
         if (parsedSession.expires_at && new Date(parsedSession.expires_at * 1000) < new Date()) {
           localStorage.removeItem('adminToken')
           localStorage.removeItem('adminSession')
@@ -30,13 +48,33 @@ export default function AdminDashboard() {
       }
 
       setIsAuthed(true)
+      fetchData()
     }
 
     checkAuth()
   }, [])
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch('/api/admin/classes', {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+        }
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setClasses(data.classes || [])
+        setStats(data.stats || { total: 0, today: 0, week: 0, month: 0 })
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error)
+    }
+  }
+
   const handleLogout = () => {
     localStorage.removeItem('adminToken')
+    localStorage.removeItem('adminSession')
     window.location.href = '/admin'
   }
 
