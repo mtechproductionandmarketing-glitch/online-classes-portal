@@ -56,22 +56,42 @@ function SuccessPageContent() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-paf-light">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b border-paf-blue/20">
-        <div className="page-container">
-          <div className="flex items-center gap-4 py-4">
-            <div className="w-12 h-12 bg-paf-blue rounded-lg flex items-center justify-center text-white font-bold">
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-white)' }}>
+      {/* Navigation Bar */}
+      <nav className="navbar">
+        <div className="flex items-center gap-8 w-full">
+          <div className="nav-brand">
+            <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: 'var(--color-primary-blue)' }}>
               PAF
             </div>
-            <div>
-              <h1 className="text-lg md:text-xl font-bold text-paf-dark-blue">
-                Online Classes Recording & Tracking Portal
-              </h1>
+            <div className="ml-3">
+              <p className="text-sm font-semibold" style={{ color: 'var(--color-primary-blue)' }}>
+                PAF-IAST
+              </p>
+              <p className="text-xs" style={{ color: 'var(--color-gray-medium)' }}>
+                Online Classes Portal
+              </p>
             </div>
           </div>
         </div>
-      </header>
+      </nav>
+
+      {/* Hero Section - Success Page */}
+      <section className="hero-section" style={{
+        backgroundImage: 'linear-gradient(rgba(16, 185, 129, 0.7), rgba(16, 185, 129, 0.7)), url("https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=1920&h=600&fit=crop")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}>
+        <div className="hero-content">
+          <div className="mb-8">
+            <span className="text-green-100 font-semibold text-sm tracking-widest">SUCCESS</span>
+          </div>
+          <h1 className="hero-title">Class Recording Submitted</h1>
+          <p className="hero-subtitle">
+            Your record has been saved successfully. Keep this Reference ID for your records.
+          </p>
+        </div>
+      </section>
 
       {/* Main content */}
       <main className="page-container py-8 md:py-16">
