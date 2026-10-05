@@ -94,8 +94,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (data && data.length > 0) {
-      const result = data[0]
+    if (data && (data as any).length > 0) {
+      const result = (data as any)[0]
       if (result.success) {
         return NextResponse.json({
           success: true,
