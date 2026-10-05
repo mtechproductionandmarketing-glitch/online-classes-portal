@@ -15,17 +15,27 @@ export default function AdminLogin() {
     setError('')
 
     try {
-      // Placeholder for authentication logic
-      // Will connect to Supabase auth
       if (!email || !password) {
         setError('Please enter both email and password')
         return
       }
 
-      // TODO: Implement actual authentication
-      console.log('Login attempt:', { email, password })
+      // Demo authentication - test credentials
+      const testUsers = [
+        { email: 'admin@paf-iast.edu.pk', password: 'Admin@123' },
+        { email: 'director@paf-iast.edu.pk', password: 'Director@123' },
+      ]
 
-      setError('Admin authentication coming soon')
+      const user = testUsers.find(u => u.email === email && u.password === password)
+
+      if (user) {
+        // Store auth token in localStorage
+        localStorage.setItem('adminToken', JSON.stringify({ email, role: 'admin' }))
+        // Redirect to dashboard
+        window.location.href = '/admin/dashboard'
+      } else {
+        setError('Invalid email or password. Try: admin@paf-iast.edu.pk / Admin@123')
+      }
     } finally {
       setLoading(false)
     }
