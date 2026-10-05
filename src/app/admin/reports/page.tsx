@@ -34,37 +34,24 @@ export default function ReportsPage() {
 
   const downloadCSV = async () => {
     try {
-      const response = await fetch('/api/admin/classes')
+      const response = await fetch('/api/admin/export')
       if (response.ok) {
-        const data = await response.json()
-        const classes = data.classes || []
-
-        const csv = [
-          ['Reference ID', 'Date', 'Faculty Name', 'Course Title', 'Program', 'Batch', 'Section', 'Start Time', 'Duration (min)', 'Teams Link', 'Remarks'],
-          ...classes.map((c: any) => [
-            c.reference_id,
-            c.class_date,
-            c.faculty_name,
-            c.course_title,
-            c.program,
-            c.batch,
-            c.section,
-            c.start_time,
-            c.duration_minutes,
-            c.teams_link,
-            c.remarks || ''
-          ])
-        ].map(row => row.map(cell => `"${cell}"`).join(',')).join('\n')
-
-        const blob = new Blob([csv], { type: 'text/csv' })
+        const blob = await response.blob()
         const url = window.URL.createObjectURL(blob)
         const a = document.createElement('a')
         a.href = url
         a.download = `online-classes-${new Date().toISOString().split('T')[0]}.csv`
+        document.body.appendChild(a)
         a.click()
+        document.body.removeChild(a)
+        window.URL.revokeObjectURL(url)
+        alert('✅ CSV Downloaded Successfully!')
+      } else {
+        alert('❌ Download failed')
       }
     } catch (error) {
       console.error('Error downloading:', error)
+      alert('❌ Error: ' + (error as any).message)
     }
   }
 

@@ -1,10 +1,31 @@
 'use client'
 
 import Link from 'next/link'
+import { useState } from 'react'
 
 export default function CleanupPage() {
-  const handleDeleteOldRecords = () => {
-    alert('Delete records older than 90 days - Contact support')
+  const [loading, setLoading] = useState(false)
+
+  const handleDeleteAllData = async () => {
+    if (!window.confirm('Are you absolutely sure? This will DELETE ALL class records permanently!')) {
+      return
+    }
+
+    setLoading(true)
+    try {
+      const response = await fetch('/api/admin/delete-all', { method: 'POST' })
+      const data = await response.json()
+
+      if (response.ok) {
+        alert(`✅ SUCCESS! All data deleted.\nRemaining records: ${data.remaining || 0}`)
+      } else {
+        alert(`❌ Error: ${data.error}`)
+      }
+    } catch (error) {
+      alert(`❌ Error: ${(error as any).message}`)
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -32,22 +53,23 @@ export default function CleanupPage() {
         <main style={{ flex: 1, padding: '32px 24px' }}>
           <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1A1A1A', marginBottom: '24px' }}>Data Cleanup</h1>
           <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #E8EAEF', maxWidth: '500px' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', marginBottom: '16px' }}>⚠️ Delete Old Records</h2>
-            <p style={{ color: '#9CA3AF', marginBottom: '16px' }}>Permanently delete submissions older than 90 days</p>
+            <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', marginBottom: '16px' }}>⚠️ Delete All Data</h2>
+            <p style={{ color: '#9CA3AF', marginBottom: '16px' }}>Permanently delete ALL class records from database</p>
             <button
-              onClick={handleDeleteOldRecords}
+              onClick={handleDeleteAllData}
+              disabled={loading}
               style={{
                 width: '100%',
                 padding: '12px 16px',
-                backgroundColor: '#EF4444',
+                backgroundColor: loading ? '#D1D5DB' : '#EF4444',
                 color: 'white',
                 border: 'none',
                 borderRadius: '6px',
                 fontWeight: '600',
-                cursor: 'pointer'
+                cursor: loading ? 'not-allowed' : 'pointer'
               }}
             >
-              Delete Old Records
+              {loading ? 'Deleting...' : '🗑️ DELETE ALL DATA'}
             </button>
           </div>
         </main>
