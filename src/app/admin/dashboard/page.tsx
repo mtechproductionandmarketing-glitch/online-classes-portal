@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 interface ClassRecord {
   id: string
@@ -14,7 +13,6 @@ interface ClassRecord {
 }
 
 export default function AdminDashboard() {
-  const router = useRouter()
   const [isAuthed, setIsAuthed] = useState(false)
   const [classes, setClasses] = useState<ClassRecord[]>([])
   const [stats, setStats] = useState({
@@ -56,11 +54,7 @@ export default function AdminDashboard() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('/api/admin/classes', {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-        }
-      })
+      const response = await fetch('/api/admin/classes')
 
       if (response.ok) {
         const data = await response.json()
@@ -81,26 +75,20 @@ export default function AdminDashboard() {
   if (!isAuthed) return null
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#F3F5F9' }}>
-      {/* Header Branding Line */}
+    <div style={{ minHeight: '100vh', backgroundColor: '#F9FAFB' }}>
+      {/* Header Branding */}
       <div style={{ backgroundColor: '#F3F5F9', padding: '8px 24px', borderBottom: '1px solid #E8EAEF', textAlign: 'center' }}>
-        <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0', letterSpacing: '0.5px' }}>
+        <p style={{ fontSize: '12px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>
           Pak-Austria Fachhochschule · School of Computing Sciences
         </p>
       </div>
 
       {/* Header */}
-      <header style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '12px 24px' }}>
+      <header style={{ backgroundColor: 'white', borderBottom: '1px solid #E8EAEF', padding: '16px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <img
-            src="/logos/paf-iast-logo.png"
-            alt="PAF-IAST"
-            style={{ height: '48px', objectFit: 'contain' }}
-          />
+          <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" style={{ height: '48px', objectFit: 'contain' }} />
           <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-            <p style={{ fontSize: '14px', fontWeight: '600', color: '#2C5AA0' }}>
-              Admin Dashboard
-            </p>
+            <h1 style={{ fontSize: '20px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>Admin Dashboard</h1>
             <button
               onClick={handleLogout}
               style={{
@@ -120,67 +108,43 @@ export default function AdminDashboard() {
         </div>
       </header>
 
-      {/* Sidebar & Content */}
-      <div style={{ display: 'flex', minHeight: 'calc(100vh - 80px)' }}>
-        {/* Sidebar */}
-        <aside style={{ width: '200px', backgroundColor: 'white', borderRight: '1px solid #E8EAEF', padding: '24px' }}>
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-            <a href="#" style={{ padding: '12px 16px', backgroundColor: '#F3F5F9', color: '#2C5AA0', textDecoration: 'none', borderRadius: '4px', fontWeight: '600', fontSize: '14px' }}>Dashboard</a>
-            <a href="#" style={{ padding: '12px 16px', color: '#4B5563', textDecoration: 'none', fontSize: '14px' }}>All online classes</a>
-            <a href="#" style={{ padding: '12px 16px', color: '#4B5563', textDecoration: 'none', fontSize: '14px' }}>Reports & export</a>
-            <a href="#" style={{ padding: '12px 16px', color: '#4B5563', textDecoration: 'none', fontSize: '14px' }}>Data cleanup</a>
-            <a href="#" style={{ padding: '12px 16px', color: '#4B5563', textDecoration: 'none', fontSize: '14px' }}>Audit log</a>
-            <a href="#" style={{ padding: '12px 16px', color: '#4B5563', textDecoration: 'none', fontSize: '14px' }}>Settings</a>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
-        <main style={{ flex: 1, padding: '24px' }}>
-          <div>
-            <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1A1A1A', marginBottom: '8px' }}>Dashboard</h1>
-            <p style={{ fontSize: '14px', color: '#9CA3AF', marginBottom: '24px' }}>Online classes reported by faculty, by class date.</p>
-          </div>
-
-          {/* KPI Cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px', marginBottom: '24px' }}>
-            <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              <p style={{ fontSize: '12px', color: '#9CA3AF', marginBottom: '8px' }}>Total online classes</p>
-              <p style={{ fontSize: '32px', fontWeight: '700', color: '#1A1A1A' }}>248</p>
+      {/* Main Content */}
+      <main style={{ padding: '32px 24px', maxWidth: '1400px', margin: '0 auto' }}>
+        {/* Statistics */}
+        <div style={{ marginBottom: '32px' }}>
+          <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', marginBottom: '16px' }}>Statistics</h2>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
+            <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
+              <p style={{ fontSize: '12px', color: '#9CA3AF', margin: '0 0 8px 0' }}>Total Submissions</p>
+              <p style={{ fontSize: '36px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>{stats.total}</p>
             </div>
-            <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              <p style={{ fontSize: '12px', color: '#9CA3AF', marginBottom: '8px' }}>Today</p>
-              <p style={{ fontSize: '32px', fontWeight: '700', color: '#1A1A1A' }}>12</p>
+            <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
+              <p style={{ fontSize: '12px', color: '#9CA3AF', margin: '0 0 8px 0' }}>Today</p>
+              <p style={{ fontSize: '36px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>{stats.today}</p>
             </div>
-            <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              <p style={{ fontSize: '12px', color: '#9CA3AF', marginBottom: '8px' }}>This week</p>
-              <p style={{ fontSize: '32px', fontWeight: '700', color: '#1A1A1A' }}>46</p>
+            <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
+              <p style={{ fontSize: '12px', color: '#9CA3AF', margin: '0 0 8px 0' }}>This Week</p>
+              <p style={{ fontSize: '36px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>{stats.week}</p>
             </div>
-            <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
-              <p style={{ fontSize: '12px', color: '#9CA3AF', marginBottom: '8px' }}>This month</p>
-              <p style={{ fontSize: '32px', fontWeight: '700', color: '#1A1A1A' }}>156</p>
+            <div style={{ backgroundColor: 'white', padding: '20px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
+              <p style={{ fontSize: '12px', color: '#9CA3AF', margin: '0 0 8px 0' }}>This Month</p>
+              <p style={{ fontSize: '36px', fontWeight: '700', color: '#2C5AA0', margin: '0' }}>{stats.month}</p>
             </div>
           </div>
+        </div>
 
-          {/* Data Breakdown */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '16px', marginBottom: '24px' }}>
-            {[
-              { label: 'Faculty', value: '38' },
-              { label: 'Programs', value: '5' },
-              { label: 'Batches', value: '9' },
-              { label: 'Sections', value: '14' }
-            ].map((item, i) => (
-              <div key={i} style={{ backgroundColor: 'white', padding: '16px', borderRadius: '8px', textAlign: 'center' }}>
-                <p style={{ fontSize: '12px', color: '#9CA3AF', marginBottom: '8px' }}>{item.label}</p>
-                <p style={{ fontSize: '24px', fontWeight: '700', color: '#2C5AA0' }}>{item.value}</p>
-              </div>
-            ))}
+        {/* Recent Submissions Table */}
+        <div style={{ backgroundColor: 'white', borderRadius: '8px', border: '1px solid #E8EAEF', overflow: 'hidden' }}>
+          <div style={{ padding: '20px 24px', borderBottom: '1px solid #E8EAEF' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', margin: '0' }}>Recent Submissions</h2>
           </div>
 
-          {/* Recent Submissions Table */}
-          <div style={{ backgroundColor: 'white', borderRadius: '8px', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', overflow: 'hidden' }}>
-            <div style={{ padding: '24px', borderBottom: '1px solid #E8EAEF' }}>
-              <h2 style={{ fontSize: '16px', fontWeight: '700', color: '#1A1A1A' }}>Recent submissions</h2>
+          {classes.length === 0 ? (
+            <div style={{ padding: '40px', textAlign: 'center', color: '#9CA3AF' }}>
+              <p style={{ margin: '0', fontSize: '16px' }}>No class submissions yet</p>
+              <p style={{ margin: '8px 0 0 0', fontSize: '14px' }}>Faculty can submit classes from the portal</p>
             </div>
+          ) : (
             <div style={{ overflowX: 'auto' }}>
               <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                 <thead>
@@ -194,27 +158,22 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {[
-                    { id: 'OC-261904-0017', date: '04 Oct 2026', faculty: 'Faculty A', course: 'Data Structures', program: 'BS CS', duration: '90 min' },
-                    { id: 'OC-261904-0016', date: '04 Oct 2026', faculty: 'Faculty B', course: 'Machine Learning', program: 'BS AI', duration: '60 min' },
-                    { id: 'OC-261904-0015', date: '04 Oct 2026', faculty: 'Faculty C', course: 'Network Security', program: 'BS CYS', duration: '90 min' },
-                    { id: 'OC-261903-0001', date: '03 Oct 2026', faculty: 'Faculty D', course: 'Software Requirements', program: 'BS SE', duration: '75 min' },
-                  ].map((row, i) => (
-                    <tr key={i} style={{ borderBottom: '1px solid #E8EAEF', backgroundColor: i % 2 === 0 ? 'white' : '#FAFBFC' }}>
-                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#2C5AA0', fontWeight: '600' }}>{row.id}</td>
-                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>{row.date}</td>
-                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>{row.faculty}</td>
-                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>{row.course}</td>
+                  {classes.map((row, i) => (
+                    <tr key={i} style={{ borderBottom: '1px solid #E8EAEF', backgroundColor: i % 2 === 0 ? '#FAFBFC' : 'white' }}>
+                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#2C5AA0', fontWeight: '600' }}>{row.reference_id}</td>
+                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>{new Date(row.class_date).toLocaleDateString()}</td>
+                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>{row.faculty_name}</td>
+                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>{row.course_title}</td>
                       <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>{row.program}</td>
-                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>{row.duration}</td>
+                      <td style={{ padding: '12px 16px', fontSize: '14px', color: '#4B5563' }}>{row.duration_minutes} min</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
-          </div>
-        </main>
-      </div>
+          )}
+        </div>
+      </main>
     </div>
   )
 }
