@@ -3,11 +3,11 @@
 export const dynamic = 'force-dynamic'
 
 import { useSearchParams, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { getClassById, OnlineClass } from '@/lib/database'
 import { ErrorAlert } from '@/components/ErrorAlert'
 
-export default function SuccessPage() {
+function SuccessPageContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const refId = searchParams.get('ref')
@@ -187,5 +187,13 @@ export default function SuccessPage() {
         </div>
       </footer>
     </div>
+  )
+}
+
+export default function SuccessPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
+      <SuccessPageContent />
+    </Suspense>
   )
 }
