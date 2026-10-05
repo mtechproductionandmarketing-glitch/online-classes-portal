@@ -58,20 +58,45 @@ function SuccessPageContent() {
   return (
     <div className="min-h-screen" style={{ backgroundColor: 'var(--color-white)' }}>
       {/* Navigation Bar */}
-      <nav className="navbar">
-        <div className="flex items-center gap-8 w-full">
-          <div className="nav-brand">
-            <div className="w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-lg" style={{ backgroundColor: 'var(--color-primary-blue)' }}>
-              PAF
-            </div>
-            <div className="ml-3">
-              <p className="text-sm font-semibold" style={{ color: 'var(--color-primary-blue)' }}>
-                PAF-IAST
+      <nav className="navbar" style={{ borderBottom: '2px solid var(--color-primary-blue)' }}>
+        <div className="flex items-center justify-between w-full gap-4">
+          {/* Left Logo Section */}
+          <div className="flex items-center gap-6">
+            {/* PAF-IAST Logo */}
+            <img
+              src="/logos/paf-iast-logo.png"
+              alt="PAF-IAST Logo"
+              className="h-12"
+              style={{ objectFit: 'contain' }}
+            />
+
+            {/* Text Branding */}
+            <div className="border-l-2 border-gray-300 pl-6">
+              <p className="font-bold text-sm" style={{ color: 'var(--color-primary-blue)' }}>
+                Pak-Austria Fachhochschule
               </p>
-              <p className="text-xs" style={{ color: 'var(--color-gray-medium)' }}>
-                Online Classes Portal
+              <p className="text-xs" style={{ color: 'var(--color-secondary-orange)' }}>
+                Institute of Applied Sciences and Technology
+              </p>
+              <p className="text-xs font-semibold text-gray-700">
+                School of Computing Sciences
               </p>
             </div>
+
+            {/* SCS Logo */}
+            <img
+              src="/logos/scs-logo.jpg"
+              alt="SCS Logo"
+              className="h-12"
+              style={{ objectFit: 'contain' }}
+            />
+          </div>
+
+          {/* Right Side - Title */}
+          <div className="text-right hidden sm:block">
+            <p className="text-xs font-semibold" style={{ color: 'var(--color-primary-blue)' }}>
+              Online Classes Portal
+            </p>
           </div>
         </div>
       </nav>

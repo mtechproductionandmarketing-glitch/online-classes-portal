@@ -46,3 +46,5 @@ lerna-debug.log*
 supabase/.branches/
 supabase/.temp/
 supabase/migrations/seed.sql
+
+.vercel

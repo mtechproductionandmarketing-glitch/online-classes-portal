@@ -67,19 +67,30 @@ export default function AdminLogin() {
       {/* Right Side - Login Form */}
       <div className="w-full lg:w-1/2 flex flex-col items-center justify-center p-8 md:p-16">
         <div className="w-full max-w-md">
-          {/* Logo */}
+          {/* Logo Section */}
           <div className="mb-12 flex justify-center">
             <div className="text-center">
-              <div
-                className="w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-2xl mb-4 mx-auto"
-                style={{ backgroundColor: 'var(--color-primary-blue)' }}
-              >
-                PAF
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <img
+                  src="/logos/paf-iast-logo.png"
+                  alt="PAF-IAST Logo"
+                  className="h-16"
+                  style={{ objectFit: 'contain' }}
+                />
+                <img
+                  src="/logos/scs-logo.jpg"
+                  alt="SCS Logo"
+                  className="h-16"
+                  style={{ objectFit: 'contain' }}
+                />
               </div>
-              <p className="font-semibold" style={{ color: 'var(--color-primary-blue)' }}>
-                PAF-IAST FACHHOCHSCHULE
+              <p className="font-bold text-lg mb-1" style={{ color: 'var(--color-primary-blue)' }}>
+                Pak-Austria Fachhochschule
               </p>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm font-semibold" style={{ color: 'var(--color-secondary-orange)' }}>
+                School of Computing Sciences
+              </p>
+              <p className="text-xs text-gray-600 mt-1">
                 Institute of Applied Sciences and Technology
               </p>
             </div>

@@ -83,33 +83,42 @@ export default function FacultyForm() {
     }}>
       <div className="min-h-screen flex items-center justify-center p-4 py-12">
         <div className="w-full max-w-3xl">
-          {/* Header */}
+          {/* Header with Branding */}
           <div className="mb-8 text-white">
-            <img src="/logo.png" alt="PAF-IAST" className="h-12 mb-6" />
-            <h1 className="text-5xl font-bold mb-3" style={{fontFamily: 'Barlow Condensed, sans-serif'}}>
+            <div className="flex items-center gap-4 mb-6">
+              <img src="/logos/paf-iast-logo.png" alt="PAF-IAST" className="h-14" style={{ objectFit: 'contain' }} />
+              <img src="/logos/scs-logo.jpg" alt="SCS" className="h-14" style={{ objectFit: 'contain' }} />
+            </div>
+            <div className="mb-4">
+              <p className="text-sm font-semibold opacity-90">Pak-Austria Fachhochschule · School of Computing Sciences</p>
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-3">
               Submit your online class record
             </h1>
-            <p className="text-xl opacity-90">
-              No login needed. Fill in the class details, paste the MS Teams link, and you will get a Reference ID once it is saved.
+            <p className="text-lg opacity-90">
+              No login needed. Fill in all details below and get an instant Reference ID.
             </p>
           </div>
 
-          {/* Form Card */}
-          <div className="bg-white rounded-lg shadow-2xl p-8 md:p-10">
+          {/* Form Card - Excel-style */}
+          <div className="bg-white rounded-lg shadow-2xl p-0 overflow-hidden border-2" style={{ borderColor: 'var(--color-primary-blue)' }}>
             {submitError && (
-              <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded text-red-700">
-                <p className="font-semibold">Error</p>
+              <div className="p-4 bg-red-50 border-b-2 border-red-500 text-red-700">
+                <p className="font-semibold">❌ Error</p>
                 <p>{submitError}</p>
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-8">
+            <form onSubmit={handleSubmit} className="">
               {/* Section 1 */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6" style={{color: '#2C5AA0', fontFamily: 'Barlow Condensed, sans-serif'}}>
-                  1. When was the class?
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="border-b-2" style={{ borderColor: 'var(--color-primary-blue)' }}>
+                <div className="px-8 py-4" style={{ backgroundColor: 'var(--color-primary-blue)', color: 'white' }}>
+                  <h2 className="text-xl font-bold">
+                    1. When was the class?
+                  </h2>
+                </div>
+                <div className="px-8 py-6">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Class date</label>
                     <input
@@ -157,14 +166,17 @@ export default function FacultyForm() {
                     {errors.duration_minutes && <p className="mt-1 text-sm text-red-600">{errors.duration_minutes}</p>}
                   </div>
                 </div>
+                </div>
               </div>
 
               {/* Section 2 */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6" style={{color: '#2C5AA0', fontFamily: 'Barlow Condensed, sans-serif'}}>
-                  2. Who taught, and which class?
-                </h2>
-                <div className="space-y-4">
+              <div className="border-b-2" style={{ borderColor: 'var(--color-primary-blue)' }}>
+                <div className="px-8 py-4" style={{ backgroundColor: 'var(--color-secondary-orange)', color: 'white' }}>
+                  <h2 className="text-xl font-bold">
+                    2. Who taught, and which class?
+                  </h2>
+                </div>
+                <div className="px-8 py-6 space-y-4">
                   <div>
                     <label className="block text-sm font-semibold text-gray-700 mb-2">Faculty name</label>
                     <input
@@ -247,14 +259,18 @@ export default function FacultyForm() {
                     </div>
                   </div>
                 </div>
+                </div>
               </div>
 
               {/* Section 3 */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6" style={{color: '#2C5AA0', fontFamily: 'Barlow Condensed, sans-serif'}}>
-                  3. Meeting link
-                </h2>
+              <div className="border-b-2" style={{ borderColor: 'var(--color-primary-blue)' }}>
+                <div className="px-8 py-4" style={{ backgroundColor: 'var(--color-primary-blue)', color: 'white' }}>
+                  <h2 className="text-xl font-bold">
+                    3. Meeting link
+                  </h2>
+                </div>
 
+                <div className="px-8 py-6">
                 <div className="mb-4">
                   <label className="block text-sm font-semibold text-gray-700 mb-2">MS Teams link</label>
                   <input
@@ -289,10 +305,11 @@ export default function FacultyForm() {
                   />
                   {errors.remarks && <p className="mt-1 text-sm text-red-600">{errors.remarks}</p>}
                 </div>
+                </div>
               </div>
 
               {/* Buttons */}
-              <div className="pt-6 border-t flex gap-4">
+              <div className="px-8 py-6 border-t flex gap-4">
                 <button
                   type="button"
                   disabled={isSubmitting}
