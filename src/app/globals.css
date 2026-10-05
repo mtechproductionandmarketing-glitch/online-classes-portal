@@ -183,7 +183,7 @@ a {
   }
 
   .data-table td {
-    @apply block w-full text-right padding-l-40 relative mb-2 border-b-0 py-2;
+    @apply block w-full text-right pl-40 relative mb-2 border-b-0 py-2;
   }
 
   .data-table td:before {
