@@ -7,28 +7,49 @@ const supabase = createClient(
 
 export async function POST() {
   try {
-    // Delete ALL records
+    // Count existing records before deletion
+    const { count: beforeCount } = await supabase
+      .from('online_classes')
+      .select('*', { count: 'exact', head: true })
+
+    if (beforeCount === 0) {
+      return Response.json({
+        success: true,
+        message: 'No records to delete',
+        deleted: 0,
+        remaining: 0
+      })
+    }
+
+    // Delete all records using a date filter that matches everything
+    // created_at >= year 2000 will match all records
     const { error: deleteError } = await supabase
       .from('online_classes')
       .delete()
-      .neq('id', '00000000-0000-0000-0000-000000000000') // Delete all
+      .gte('created_at', '2000-01-01T00:00:00')
 
     if (deleteError) {
-      return Response.json({ error: deleteError.message }, { status: 500 })
+      console.error('Supabase delete error:', deleteError)
+      return Response.json({
+        error: `Delete failed: ${deleteError.message}`
+      }, { status: 500 })
     }
 
-    // Verify deletion
-    const { count } = await supabase
+    // Verify deletion worked
+    const { count: afterCount } = await supabase
       .from('online_classes')
       .select('*', { count: 'exact', head: true })
 
     return Response.json({
       success: true,
-      message: 'All data deleted successfully',
-      remaining: count
+      message: `✅ Successfully deleted ${beforeCount} records!`,
+      deleted: beforeCount,
+      remaining: afterCount || 0
     })
   } catch (error) {
     console.error('Delete error:', error)
-    return Response.json({ error: 'Delete failed' }, { status: 500 })
+    return Response.json({
+      error: `Error: ${(error as any).message}`
+    }, { status: 500 })
   }
 }
