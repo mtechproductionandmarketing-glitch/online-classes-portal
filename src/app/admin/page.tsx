@@ -98,13 +98,7 @@ export default function AdminLogin() {
           {/* Logo Section */}
           <div className="mb-12 flex justify-center">
             <div className="text-center">
-              <div className="flex items-center justify-center gap-4 mb-6">
-                <img
-                  src="/logos/scs-logo.jpg"
-                  alt="SCS Logo"
-                  className="h-16"
-                  style={{ objectFit: 'contain' }}
-                />
+              <div className="flex items-center justify-center mb-6">
                 <img
                   src="/logos/scs-logo.jpg"
                   alt="SCS Logo"
@@ -112,13 +106,10 @@ export default function AdminLogin() {
                   style={{ objectFit: 'contain' }}
                 />
               </div>
-              <p className="font-bold text-lg mb-1" style={{ color: 'var(--color-primary-blue)' }}>
+              <p className="font-bold text-lg mb-2" style={{ color: 'var(--color-primary-blue)' }}>
                 School of Computing Sciences
               </p>
-              <p className="text-sm font-semibold" style={{ color: 'var(--color-secondary-orange)' }}>
-                School of Computing Sciences
-              </p>
-              <p className="text-xs text-gray-600 mt-1">
+              <p className="text-xs text-gray-600">
                 Institute of Applied Sciences and Technology
               </p>
             </div>
