@@ -23,55 +23,48 @@ export default function Home() {
       </nav>
 
       {/* Hero Section with Background Image */}
-      <section className="hero-section" style={{
-        backgroundImage: 'linear-gradient(rgba(44, 90, 160, 0.7), rgba(44, 90, 160, 0.7)), url("/images/backgrounds/hero-faculty.jpg")',
+      <section style={{
+        backgroundImage: 'linear-gradient(rgba(44, 90, 160, 0.7), rgba(44, 90, 160, 0.7)), url("/images/backgrounds/faculty-hero.jpg")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
+        padding: '60px 24px',
+        textAlign: 'center',
+        minHeight: '300px',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
-        <div className="hero-content">
-          <div className="mb-8">
-            <span className="text-orange-300 font-semibold text-sm tracking-widest">FACULTY PORTAL</span>
-          </div>
-          <h1 className="hero-title">Submit your online class record</h1>
-          <p className="hero-subtitle">
+        <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+          <p style={{ color: '#FCD34D', fontSize: '12px', fontWeight: '700', letterSpacing: '2px', marginBottom: '16px' }}>
+            FACULTY PORTAL
+          </p>
+          <h1 style={{ color: 'white', fontSize: '48px', fontWeight: '700', marginBottom: '16px', lineHeight: '1.2' }}>
+            Submit your online class record
+          </h1>
+          <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', lineHeight: '1.6' }}>
             No login needed. Fill in the class details, paste the MS Teams link, and you will get a Reference ID once it is saved.
           </p>
         </div>
       </section>
 
       {/* Form Section */}
-      <section className="page-container py-16">
-        <div className="max-w-3xl mx-auto">
-          <div className="card">
+      <section style={{ padding: '48px 24px', backgroundColor: '#F9FAFB' }}>
+        <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+          <div style={{ backgroundColor: 'white', borderRadius: '12px', boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', overflow: 'hidden' }}>
             <FacultyForm />
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t" style={{ borderColor: 'var(--color-gray-light)' }}>
-        <div className="page-container py-12">
-          <div className="flex flex-col items-center justify-center gap-8 mb-8">
-            <div className="flex gap-8 items-center justify-center flex-wrap">
-              <img
-                src="/logos/paf-iast-logo.png"
-                alt="PAF-IAST Logo"
-                className="h-16"
-              />
-              <img
-                src="/logos/scs-logo.jpg"
-                alt="SCS Logo"
-                className="h-16"
-              />
-            </div>
-          </div>
-          <div className="text-center text-sm" style={{ color: 'var(--color-gray-medium)' }}>
-            <p>
-              Pak-Austria Fachhochschule: Institute of Applied Sciences and Technology · Online Classes Recording & Tracking Portal
-            </p>
-            <p className="mt-4">© 2026 PAF-IAST. All rights reserved.</p>
-          </div>
-        </div>
+      <footer style={{ backgroundColor: 'white', borderTop: '1px solid #E8EAEF', padding: '40px 24px', textAlign: 'center' }}>
+        <p style={{ color: '#9CA3AF', fontSize: '14px', marginBottom: '8px' }}>
+          Pak-Austria Fachhochschule: Institute of Applied Sciences and Technology · Online Classes Recording & Tracking Portal
+        </p>
+        <p style={{ color: '#9CA3AF', fontSize: '14px' }}>
+          © 2026 PAF-IAST. All rights reserved.
+        </p>
       </footer>
     </main>
   )

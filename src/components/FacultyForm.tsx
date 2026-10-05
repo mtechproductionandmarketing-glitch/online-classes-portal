@@ -77,261 +77,323 @@ export default function FacultyForm() {
   }
 
   return (
-    <div className="min-h-screen bg-cover bg-center relative" style={{
-      backgroundImage: 'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url("/campus-bg.jpg")',
-      backgroundAttachment: 'fixed',
-    }}>
-      <div className="min-h-screen flex items-center justify-center p-4 py-12">
-        <div className="w-full max-w-3xl">
-          {/* Header */}
-          <div className="mb-8 text-white">
-            <img src="/logo.png" alt="PAF-IAST" className="h-12 mb-6" />
-            <h1 className="text-5xl font-bold mb-3" style={{fontFamily: 'Barlow Condensed, sans-serif'}}>
-              Submit your online class record
-            </h1>
-            <p className="text-xl opacity-90">
-              No login needed. Fill in the class details, paste the MS Teams link, and you will get a Reference ID once it is saved.
-            </p>
+    <form onSubmit={handleSubmit} style={{ padding: '48px' }}>
+      {submitError && (
+        <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#FEE2E2', borderLeft: '4px solid #EF4444', borderRadius: '6px', color: '#DC2626' }}>
+          <p style={{ fontWeight: '600', marginBottom: '4px' }}>Error</p>
+          <p style={{ fontSize: '14px' }}>{submitError}</p>
+        </div>
+      )}
+
+      {/* Section 1: When was the class? */}
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#2C5AA0', marginBottom: '24px' }}>
+          1. When was the class?
+        </h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px' }}>
+          <div>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+              Class date
+            </label>
+            <input
+              type="date"
+              name="class_date"
+              value={formData.class_date}
+              onChange={handleChange}
+              disabled={isSubmitting}
+              style={{
+                width: '100%',
+                padding: '10px 12px',
+                border: `2px solid ${errors.class_date ? '#EF4444' : '#D1D5DB'}`,
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontFamily: 'inherit',
+              }}
+              placeholder="mm/dd/yyyy"
+            />
+            {errors.class_date && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.class_date}</p>}
           </div>
 
-          {/* Form Card */}
-          <div className="bg-white rounded-lg shadow-2xl p-8 md:p-10">
-            {submitError && (
-              <div className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded text-red-700">
-                <p className="font-semibold">Error</p>
-                <p>{submitError}</p>
-              </div>
-            )}
+          <div>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+              Start time
+            </label>
+            <input
+              type="time"
+              name="start_time"
+              value={formData.start_time}
+              onChange={handleChange}
+              disabled={isSubmitting}
+              style={{
+                width: '100%',
+                padding: '10px 12px',
+                border: `2px solid ${errors.start_time ? '#EF4444' : '#D1D5DB'}`,
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontFamily: 'inherit',
+              }}
+            />
+            {errors.start_time && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.start_time}</p>}
+          </div>
 
-            <form onSubmit={handleSubmit} className="space-y-8">
-              {/* Section 1 */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6" style={{color: '#2C5AA0', fontFamily: 'Barlow Condensed, sans-serif'}}>
-                  1. When was the class?
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Class date</label>
-                    <input
-                      type="date"
-                      name="class_date"
-                      value={formData.class_date}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                        errors.class_date ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                      }`}
-                      placeholder="mm/dd/yyyy"
-                    />
-                    {errors.class_date && <p className="mt-1 text-sm text-red-600">{errors.class_date}</p>}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Class start time</label>
-                    <input
-                      type="time"
-                      name="start_time"
-                      value={formData.start_time}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                        errors.start_time ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                      }`}
-                    />
-                    {errors.start_time && <p className="mt-1 text-sm text-red-600">{errors.start_time}</p>}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Duration (minutes)</label>
-                    <input
-                      type="text"
-                      name="duration_minutes"
-                      value={formData.duration_minutes}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      placeholder="e.g. 90"
-                      className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                        errors.duration_minutes ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                      }`}
-                    />
-                    {errors.duration_minutes && <p className="mt-1 text-sm text-red-600">{errors.duration_minutes}</p>}
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 2 */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6" style={{color: '#2C5AA0', fontFamily: 'Barlow Condensed, sans-serif'}}>
-                  2. Who taught, and which class?
-                </h2>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Faculty name</label>
-                    <input
-                      type="text"
-                      name="faculty_name"
-                      value={formData.faculty_name}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      placeholder="Your full name"
-                      className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                        errors.faculty_name ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                      }`}
-                    />
-                    {errors.faculty_name && <p className="mt-1 text-sm text-red-600">{errors.faculty_name}</p>}
-                  </div>
-
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">Course title</label>
-                    <input
-                      type="text"
-                      name="course_title"
-                      value={formData.course_title}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      placeholder="e.g. Data Structures and Algorithms"
-                      className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                        errors.course_title ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                      }`}
-                    />
-                    {errors.course_title && <p className="mt-1 text-sm text-red-600">{errors.course_title}</p>}
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">Program</label>
-                      <input
-                        type="text"
-                        name="program"
-                        value={formData.program}
-                        onChange={handleChange}
-                        disabled={isSubmitting}
-                        placeholder="e.g. BS Computer Science"
-                        className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                          errors.program ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                        }`}
-                      />
-                      {errors.program && <p className="mt-1 text-sm text-red-600">{errors.program}</p>}
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">Batch</label>
-                      <input
-                        type="text"
-                        name="batch"
-                        value={formData.batch}
-                        onChange={handleChange}
-                        disabled={isSubmitting}
-                        placeholder="e.g. Fall 2024"
-                        className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                          errors.batch ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                        }`}
-                      />
-                      {errors.batch && <p className="mt-1 text-sm text-red-600">{errors.batch}</p>}
-                    </div>
-
-                    <div>
-                      <label className="block text-sm font-semibold text-gray-700 mb-2">Section</label>
-                      <input
-                        type="text"
-                        name="section"
-                        value={formData.section}
-                        onChange={handleChange}
-                        disabled={isSubmitting}
-                        placeholder="e.g. Blue or Blue + Green"
-                        className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                          errors.section ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                        }`}
-                      />
-                      {errors.section && <p className="mt-1 text-sm text-red-600">{errors.section}</p>}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Section 3 */}
-              <div>
-                <h2 className="text-2xl font-bold mb-6" style={{color: '#2C5AA0', fontFamily: 'Barlow Condensed, sans-serif'}}>
-                  3. Meeting link
-                </h2>
-
-                <div className="mb-4">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">MS Teams link</label>
-                  <input
-                    type="text"
-                    name="teams_link"
-                    value={formData.teams_link}
-                    onChange={handleChange}
-                    disabled={isSubmitting}
-                    placeholder="https://teams.microsoft.com/l/meetup-join/..."
-                    className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                      errors.teams_link ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                    }`}
-                  />
-                  <p className="mt-1 text-sm text-gray-600">Paste the full link of the class meeting. Only the link is needed, no recording.</p>
-                  {errors.teams_link && <p className="mt-1 text-sm text-red-600">{errors.teams_link}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Remarks <span className="text-gray-500 font-normal">(optional)</span>
-                  </label>
-                  <textarea
-                    name="remarks"
-                    value={formData.remarks}
-                    onChange={handleChange}
-                    disabled={isSubmitting}
-                    placeholder="Anything the admin should know, e.g. combined class or rescheduled"
-                    rows={3}
-                    className={`w-full px-4 py-2 border-2 rounded focus:outline-none focus:ring-2 ${
-                      errors.remarks ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-400'
-                    }`}
-                  />
-                  {errors.remarks && <p className="mt-1 text-sm text-red-600">{errors.remarks}</p>}
-                </div>
-              </div>
-
-              {/* Buttons */}
-              <div className="pt-6 border-t flex gap-4">
-                <button
-                  type="button"
-                  disabled={isSubmitting}
-                  onClick={() => {
-                    setFormData({
-                      class_date: '',
-                      faculty_name: '',
-                      course_title: '',
-                      batch: '',
-                      program: '',
-                      section: '',
-                      start_time: '',
-                      duration_minutes: '',
-                      teams_link: '',
-                      remarks: '',
-                    })
-                    setErrors({})
-                  }}
-                  className="px-6 py-3 border-2 border-gray-300 rounded font-semibold hover:bg-gray-50 disabled:opacity-50"
-                >
-                  Clear form
-                </button>
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="flex-1 px-6 py-3 text-white rounded font-semibold hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{backgroundColor: '#2C5AA0'}}
-                >
-                  {isSubmitting ? 'Submitting...' : 'Submit class record'}
-                </button>
-              </div>
-
-              <p className="text-sm text-gray-600 text-center">
-                Your record is saved only when you see a Reference ID on the next screen.
-              </p>
-            </form>
+          <div>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+              Minutes
+            </label>
+            <input
+              type="text"
+              name="duration_minutes"
+              value={formData.duration_minutes}
+              onChange={handleChange}
+              disabled={isSubmitting}
+              style={{
+                width: '100%',
+                padding: '10px 12px',
+                border: `2px solid ${errors.duration_minutes ? '#EF4444' : '#D1D5DB'}`,
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontFamily: 'inherit',
+              }}
+              placeholder="e.g. 90"
+            />
+            {errors.duration_minutes && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.duration_minutes}</p>}
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Section 2: Who taught, and which class? */}
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#2C5AA0', marginBottom: '24px' }}>
+          2. Who taught, and which class?
+        </h2>
+        <div style={{ marginBottom: '16px' }}>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+            Faculty name
+          </label>
+          <input
+            type="text"
+            name="faculty_name"
+            value={formData.faculty_name}
+            onChange={handleChange}
+            disabled={isSubmitting}
+            style={{
+              width: '100%',
+              padding: '10px 12px',
+              border: `2px solid ${errors.faculty_name ? '#EF4444' : '#D1D5DB'}`,
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontFamily: 'inherit',
+            }}
+            placeholder="Your full name"
+          />
+          {errors.faculty_name && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.faculty_name}</p>}
+        </div>
+
+        <div style={{ marginBottom: '16px' }}>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+            Course title
+          </label>
+          <input
+            type="text"
+            name="course_title"
+            value={formData.course_title}
+            onChange={handleChange}
+            disabled={isSubmitting}
+            style={{
+              width: '100%',
+              padding: '10px 12px',
+              border: `2px solid ${errors.course_title ? '#EF4444' : '#D1D5DB'}`,
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontFamily: 'inherit',
+            }}
+            placeholder="e.g. Data Structures and Algorithms"
+          />
+          {errors.course_title && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.course_title}</p>}
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px' }}>
+          <div>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+              Program
+            </label>
+            <input
+              type="text"
+              name="program"
+              value={formData.program}
+              onChange={handleChange}
+              disabled={isSubmitting}
+              style={{
+                width: '100%',
+                padding: '10px 12px',
+                border: `2px solid ${errors.program ? '#EF4444' : '#D1D5DB'}`,
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontFamily: 'inherit',
+              }}
+              placeholder="e.g. BS Computer Science"
+            />
+            {errors.program && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.program}</p>}
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+              Batch
+            </label>
+            <input
+              type="text"
+              name="batch"
+              value={formData.batch}
+              onChange={handleChange}
+              disabled={isSubmitting}
+              style={{
+                width: '100%',
+                padding: '10px 12px',
+                border: `2px solid ${errors.batch ? '#EF4444' : '#D1D5DB'}`,
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontFamily: 'inherit',
+              }}
+              placeholder="e.g. Fall 2024"
+            />
+            {errors.batch && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.batch}</p>}
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+              Section
+            </label>
+            <input
+              type="text"
+              name="section"
+              value={formData.section}
+              onChange={handleChange}
+              disabled={isSubmitting}
+              style={{
+                width: '100%',
+                padding: '10px 12px',
+                border: `2px solid ${errors.section ? '#EF4444' : '#D1D5DB'}`,
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontFamily: 'inherit',
+              }}
+              placeholder="e.g. Blue, or Blue + Green"
+            />
+            {errors.section && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.section}</p>}
+          </div>
+        </div>
+      </div>
+
+      {/* Section 3: Meeting link */}
+      <div style={{ marginBottom: '32px' }}>
+        <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#2C5AA0', marginBottom: '24px' }}>
+          3. Meeting link
+        </h2>
+        <div style={{ marginBottom: '16px' }}>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+            MS Teams link
+          </label>
+          <input
+            type="text"
+            name="teams_link"
+            value={formData.teams_link}
+            onChange={handleChange}
+            disabled={isSubmitting}
+            style={{
+              width: '100%',
+              padding: '10px 12px',
+              border: `2px solid ${errors.teams_link ? '#EF4444' : '#D1D5DB'}`,
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontFamily: 'inherit',
+            }}
+            placeholder="https://teams.microsoft.com/l/meetup-join/..."
+          />
+          <p style={{ marginTop: '6px', fontSize: '12px', color: '#6B7280' }}>
+            Paste the full link of the class meeting. Only the link is needed, no recording.
+          </p>
+          {errors.teams_link && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.teams_link}</p>}
+        </div>
+
+        <div>
+          <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+            Remarks <span style={{ fontWeight: '400', color: '#9CA3AF' }}>(optional)</span>
+          </label>
+          <textarea
+            name="remarks"
+            value={formData.remarks}
+            onChange={handleChange}
+            disabled={isSubmitting}
+            style={{
+              width: '100%',
+              padding: '10px 12px',
+              border: `2px solid ${errors.remarks ? '#EF4444' : '#D1D5DB'}`,
+              borderRadius: '6px',
+              fontSize: '14px',
+              fontFamily: 'inherit',
+              minHeight: '120px',
+              resize: 'vertical',
+            }}
+            placeholder="Anything the admin should know, e.g. combined class or rescheduled"
+          />
+          {errors.remarks && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.remarks}</p>}
+        </div>
+      </div>
+
+      {/* Buttons */}
+      <div style={{ display: 'flex', gap: '16px', borderTop: '1px solid #E5E7EB', paddingTop: '24px' }}>
+        <button
+          type="button"
+          disabled={isSubmitting}
+          onClick={() => {
+            setFormData({
+              class_date: '',
+              faculty_name: '',
+              course_title: '',
+              batch: '',
+              program: '',
+              section: '',
+              start_time: '',
+              duration_minutes: '',
+              teams_link: '',
+              remarks: '',
+            })
+            setErrors({})
+          }}
+          style={{
+            padding: '12px 24px',
+            border: '2px solid #D1D5DB',
+            backgroundColor: 'white',
+            borderRadius: '6px',
+            fontWeight: '600',
+            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+            opacity: isSubmitting ? 0.5 : 1,
+          }}
+        >
+          Clear form
+        </button>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          style={{
+            flex: 1,
+            padding: '12px 24px',
+            backgroundColor: '#2C5AA0',
+            color: 'white',
+            borderRadius: '6px',
+            border: 'none',
+            fontWeight: '600',
+            cursor: isSubmitting ? 'not-allowed' : 'pointer',
+            opacity: isSubmitting ? 0.7 : 1,
+          }}
+        >
+          {isSubmitting ? 'Submitting...' : 'Submit class record'}
+        </button>
+      </div>
+
+      <p style={{ marginTop: '24px', fontSize: '12px', color: '#6B7280', textAlign: 'center' }}>
+        Your record is saved only when you see a Reference ID on the next screen.
+      </p>
+    </form>
   )
 }
