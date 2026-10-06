@@ -13,16 +13,17 @@ export async function POST(request: Request) {
       return Response.json({ error: 'Subject and body are required' }, { status: 400 })
     }
 
-    // Delete old template by name, then insert new one
-    await supabase.from('email_templates').delete().eq('name', 'missing_class')
-
-    const { error } = await supabase.from('email_templates').insert([{
-      name: 'missing_class',
-      subject,
-      body,
-      sender: 'Scs@paf-iast.edu.pk',
-      updated_at: new Date().toISOString()
-    }])
+    // Update existing template or create if doesn't exist
+    const { error } = await supabase.from('email_templates').upsert(
+      {
+        name: 'missing_class',
+        subject,
+        body,
+        sender: 'Scs@paf-iast.edu.pk',
+        updated_at: new Date().toISOString()
+      },
+      { onConflict: 'name' }
+    )
 
     if (error) {
       return Response.json({ error: error.message }, { status: 500 })
