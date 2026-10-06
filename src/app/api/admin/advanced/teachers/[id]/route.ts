@@ -10,6 +10,18 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
+    // First delete any email logs for this teacher (due to foreign key constraint)
+    const { error: logsError } = await supabase
+      .from('email_logs')
+      .delete()
+      .eq('teacher_id', params.id)
+
+    if (logsError) {
+      console.error('Error deleting email logs:', logsError.message)
+      // Don't fail - proceed with teacher deletion even if logs deletion fails
+    }
+
+    // Then delete the teacher
     const { data, error } = await supabase
       .from('imported_teachers')
       .delete()
