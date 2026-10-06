@@ -18,22 +18,21 @@ export async function DELETE(
 
     if (logsError) {
       console.error('Error deleting email logs:', logsError.message)
-      // Don't fail - proceed with teacher deletion even if logs deletion fails
     }
 
     // Then delete the teacher
-    const { data, error } = await supabase
+    const { error, count } = await supabase
       .from('imported_teachers')
       .delete()
       .eq('id', params.id)
-      .select()
 
     if (error) {
       console.error('Delete error:', error.message)
       return Response.json({ error: error.message }, { status: 500 })
     }
 
-    if (!data || data.length === 0) {
+    // count should tell us how many rows were deleted
+    if (!count || count === 0) {
       return Response.json({
         success: false,
         message: 'Teacher not found or already deleted'
@@ -43,7 +42,7 @@ export async function DELETE(
     return Response.json({
       success: true,
       message: 'Teacher deleted successfully',
-      deleted: data[0]
+      deletedCount: count
     })
   } catch (error) {
     console.error('Error deleting teacher:', error)
