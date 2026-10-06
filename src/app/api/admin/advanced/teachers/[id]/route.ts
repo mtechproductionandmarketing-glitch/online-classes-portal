@@ -21,21 +21,27 @@ export async function DELETE(
     }
 
     // Then delete the teacher
+    console.log(`[DELETE] Attempting to delete teacher ID: ${params.id}`)
+
     const { error, count } = await supabase
       .from('imported_teachers')
       .delete()
       .eq('id', params.id)
 
+    console.log(`[DELETE] Result - Error: ${error?.message || 'none'}, Count: ${count}`)
+
     if (error) {
       console.error('Delete error:', error.message)
-      return Response.json({ error: error.message }, { status: 500 })
+      return Response.json({ error: error.message, details: JSON.stringify(error) }, { status: 500 })
     }
 
     // count should tell us how many rows were deleted
     if (!count || count === 0) {
+      console.warn(`[DELETE] No rows deleted for ID: ${params.id}`)
       return Response.json({
         success: false,
-        message: 'Teacher not found or already deleted'
+        message: 'Teacher not found or already deleted',
+        requestedId: params.id
       }, { status: 404 })
     }
 
