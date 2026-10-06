@@ -40,10 +40,18 @@ export default function TeachersPage() {
   const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this teacher?')) {
       try {
-        await fetch(`/api/admin/advanced/teachers/${id}`, { method: 'DELETE' })
-        fetchTeachers()
+        const response = await fetch(`/api/admin/advanced/teachers/${id}`, { method: 'DELETE' })
+        const data = await response.json()
+
+        if (response.ok && data.success) {
+          alert('Teacher deleted successfully!')
+          fetchTeachers()
+        } else {
+          alert(`Error: ${data.message || data.error || 'Failed to delete teacher'}`)
+        }
       } catch (error) {
         console.error('Error deleting teacher:', error)
+        alert('Error: Failed to delete teacher')
       }
     }
   }

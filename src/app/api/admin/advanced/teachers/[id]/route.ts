@@ -10,18 +10,31 @@ export async function DELETE(
   { params }: { params: { id: string } }
 ) {
   try {
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('imported_teachers')
       .delete()
       .eq('id', params.id)
+      .select()
 
     if (error) {
+      console.error('Delete error:', error.message)
       return Response.json({ error: error.message }, { status: 500 })
     }
 
-    return Response.json({ success: true })
+    if (!data || data.length === 0) {
+      return Response.json({
+        success: false,
+        message: 'Teacher not found or already deleted'
+      }, { status: 404 })
+    }
+
+    return Response.json({
+      success: true,
+      message: 'Teacher deleted successfully',
+      deleted: data[0]
+    })
   } catch (error) {
     console.error('Error deleting teacher:', error)
-    return Response.json({ error: 'Failed to delete teacher' }, { status: 500 })
+    return Response.json({ error: 'Failed to delete teacher', details: (error as any).message }, { status: 500 })
   }
 }
