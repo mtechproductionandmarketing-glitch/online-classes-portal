@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     }
 
     // Clear old teachers data
-    await supabase.from('imported_teachers').delete().gte('id', 0)
+    await supabase.from('imported_teachers').delete().neq('id', '')
 
     // Parse and insert teachers
     let imported = 0
