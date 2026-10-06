@@ -11,18 +11,19 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "next": "^14.0.0",
-    "@supabase/supabase-js": "^2.38.0",
+    "@anthropic-ai/sdk": "^0.131.0",
     "@supabase/auth-helpers-nextjs": "^0.7.0",
-    "tailwindcss": "^3.3.0",
+    "@supabase/supabase-js": "^2.38.0",
     "autoprefixer": "^10.4.16",
-    "postcss": "^8.4.32",
-    "recharts": "^2.10.0",
-    "exceljs": "^4.3.0",
     "crypto-js": "^4.1.1",
     "date-fns": "^2.30.0",
+    "exceljs": "^4.3.0",
+    "next": "^14.0.0",
+    "postcss": "^8.4.32",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "recharts": "^2.10.0",
+    "tailwindcss": "^3.3.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
@@ -30,8 +31,8 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@types/uuid": "^9.0.0",
-    "typescript": "^5.0.0",
     "eslint": "^8.50.0",
-    "eslint-config-next": "^14.0.0"
+    "eslint-config-next": "^14.0.0",
+    "typescript": "^5.0.0"
   }
 }

@@ -55,21 +55,21 @@ export async function POST(request: Request) {
 
     const { data: submittedClasses, error: classesError } = await supabase
       .from('online_classes')
-      .select('faculty_name, faculty_email')
+      .select('faculty_name')
       .gte('created_at', sevenDaysAgo.toISOString())
 
     if (classesError) {
       return Response.json({ error: `Failed to fetch classes: ${classesError.message}` }, { status: 500 })
     }
 
-    // Get set of submitted teacher emails for quick lookup
-    const submittedEmails = new Set(
-      (submittedClasses || []).map(c => c.faculty_email?.toLowerCase())
+    // Get set of submitted teacher names for quick lookup
+    const submittedNames = new Set(
+      (submittedClasses || []).map(c => c.faculty_name?.toLowerCase())
     )
 
     // Find missing teachers (imported but didn't submit)
     const missingTeachers = (allTeachers as Teacher[]).filter(t =>
-      !submittedEmails.has(t.email.toLowerCase())
+      !submittedNames.has(t.name.toLowerCase())
     )
 
     if (missingTeachers.length === 0) {
