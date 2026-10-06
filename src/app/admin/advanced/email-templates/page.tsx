@@ -13,7 +13,7 @@ Class: {batch} - {section}
 
 We noticed that you haven't submitted the class record yet. Please submit it as soon as possible.
 
-Emails will be sent from: muhammad.kashif@paf-iast.edu.pk (Chairman)
+Emails will be sent from: Scs@paf-iast.edu.pk
 
 Thank you,
 School of Computing Sciences`
