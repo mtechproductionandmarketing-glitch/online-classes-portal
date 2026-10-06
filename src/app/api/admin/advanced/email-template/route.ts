@@ -13,8 +13,8 @@ export async function POST(request: Request) {
       return Response.json({ error: 'Subject and body are required' }, { status: 400 })
     }
 
-    // Delete old template and insert new one
-    await supabase.from('email_templates').delete().neq('id', null)
+    // Delete old template by name, then insert new one
+    await supabase.from('email_templates').delete().eq('name', 'missing_class')
 
     const { error } = await supabase.from('email_templates').insert([{
       name: 'missing_class',
