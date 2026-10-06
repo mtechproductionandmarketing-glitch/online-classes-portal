@@ -26,14 +26,18 @@ export async function POST(request: Request) {
     const headers = lines[0].split(',').map(h => h.trim().toLowerCase())
     const requiredFields = ['teacher name', 'teacher email', 'teacher title', 'course title', 'class time', 'batch', 'section']
 
-    // Validate headers
-    const hasAllFields = requiredFields.every(field =>
-      headers.some(h => h.replace(/ /g, '') === field.replace(/ /g, ''))
+    console.log('CSV Headers:', headers)
+    console.log('Required Fields:', requiredFields)
+
+    // Validate headers - check if required fields exist in headers
+    const missingFields = requiredFields.filter(field =>
+      !headers.some(h => h.replace(/ /g, '') === field.replace(/ /g, ''))
     )
 
-    if (!hasAllFields) {
+    if (missingFields.length > 0) {
+      console.log('Missing fields:', missingFields)
       return Response.json({
-        error: 'Missing required columns. Required: Teacher Name, Teacher Email, Teacher Title, Course Title, Class Time, Batch, Section'
+        error: `Missing required columns: ${missingFields.join(', ')}. Required: Teacher Name, Teacher Email, Teacher Title, Course Title, Class Time, Batch, Section`
       }, { status: 400 })
     }
 
