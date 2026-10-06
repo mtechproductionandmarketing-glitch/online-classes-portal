@@ -126,6 +126,33 @@ export default function AdvancedPage() {
                 Manage Teachers
               </Link>
             </div>
+
+            {/* Email Notifications */}
+            <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
+              <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', marginBottom: '12px' }}>📧 Send Reminder Emails</h3>
+              <p style={{ color: '#9CA3AF', marginBottom: '16px', fontSize: '14px' }}>
+                Send automated reminders to teachers who haven't submitted classes
+              </p>
+              <Link
+                href="/admin/advanced/email-notifications"
+                style={{
+                  display: 'inline-block',
+                  width: '100%',
+                  padding: '12px 16px',
+                  backgroundColor: '#DC2626',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '6px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  textAlign: 'center',
+                  textDecoration: 'none',
+                  fontSize: '14px'
+                }}
+              >
+                Send Emails
+              </Link>
+            </div>
           </div>
         </main>
       </div>
