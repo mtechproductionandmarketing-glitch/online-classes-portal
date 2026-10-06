@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     // Validate headers
     const hasAllFields = requiredFields.every(field =>
-      headers.some(h => h.includes(field.replace(/ /g, '')))
+      headers.some(h => h.replace(/ /g, '') === field.replace(/ /g, ''))
     )
 
     if (!hasAllFields) {
