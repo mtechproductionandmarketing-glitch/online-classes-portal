@@ -132,11 +132,42 @@ export default function AdminDashboard() {
             <Link href="/admin/settings" style={{ padding: '12px 16px', color: '#4B5563', textDecoration: 'none', fontSize: '14px', display: 'block', borderRadius: '4px' }}>
               ⚙️ Settings
             </Link>
+            <Link href="/admin/advanced" style={{ padding: '12px 16px', color: '#4B5563', textDecoration: 'none', fontSize: '14px', display: 'block', borderRadius: '4px' }}>
+              ⚡ Advanced Features
+            </Link>
           </nav>
         </aside>
 
         {/* Main Content */}
         <main style={{ flex: 1, padding: '32px 24px', maxWidth: '1200px' }}>
+          {/* Quick Actions */}
+          <div style={{ marginBottom: '32px' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', marginBottom: '16px' }}>Quick Actions</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px', marginBottom: '24px' }}>
+              <Link
+                href="/admin/advanced/email-notifications"
+                style={{
+                  backgroundColor: '#DC2626',
+                  padding: '24px',
+                  borderRadius: '8px',
+                  textDecoration: 'none',
+                  color: 'white',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px',
+                  border: '1px solid #991B1B',
+                  transition: 'background-color 0.2s'
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#B91C1C')}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#DC2626')}
+              >
+                <p style={{ fontSize: '24px', margin: '0' }}>📧</p>
+                <p style={{ fontSize: '16px', fontWeight: '600', margin: '0' }}>Send Reminder Emails</p>
+                <p style={{ fontSize: '12px', color: '#FEE2E2', margin: '0' }}>Send notifications to teachers who haven't submitted</p>
+              </Link>
+            </div>
+          </div>
+
           {/* Statistics */}
           <div style={{ marginBottom: '32px' }}>
             <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', marginBottom: '16px' }}>Statistics</h2>
