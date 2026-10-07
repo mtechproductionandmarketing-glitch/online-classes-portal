@@ -5,19 +5,16 @@ import { useState } from 'react'
 
 export default function CleanupPage() {
   const [loading, setLoading] = useState(false)
+  const [showConfirm, setShowConfirm] = useState(false)
 
   const handleDeleteAllData = async () => {
-    if (!window.confirm('Are you absolutely sure? This will DELETE ALL class records permanently!')) {
-      return
-    }
-
-    setLoading(true)
     try {
       const response = await fetch('/api/admin/delete-all', { method: 'POST' })
       const data = await response.json()
 
       if (response.ok) {
         alert(`✅ SUCCESS! All data deleted.\nRemaining records: ${data.remaining || 0}`)
+        setShowConfirm(false)
       } else {
         alert(`❌ Error: ${data.error}`)
       }
@@ -71,7 +68,7 @@ export default function CleanupPage() {
             <h2 style={{ fontSize: '18px', fontWeight: '700', color: '#1A1A1A', marginBottom: '16px' }}>⚠️ Delete All Data</h2>
             <p style={{ color: '#9CA3AF', marginBottom: '16px' }}>Permanently delete ALL class records from database</p>
             <button
-              onClick={handleDeleteAllData}
+              onClick={() => setShowConfirm(true)}
               disabled={loading}
               className="mobile-button"
               style={{
@@ -88,6 +85,19 @@ export default function CleanupPage() {
             >
               {loading ? 'Deleting...' : '🗑️ DELETE ALL DATA'}
             </button>
+
+            {showConfirm && (
+              <div style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999 }}>
+                <div style={{ backgroundColor: 'white', padding: '24px', borderRadius: '8px', maxWidth: '400px', boxShadow: '0 10px 30px rgba(0,0,0,0.3)' }}>
+                  <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#EF4444', marginBottom: '12px' }}>⚠️ Are you absolutely sure?</h3>
+                  <p style={{ color: '#6B7280', marginBottom: '24px' }}>This will DELETE ALL class records permanently from the database. This action cannot be undone.</p>
+                  <div style={{ display: 'flex', gap: '12px' }}>
+                    <button onClick={() => setShowConfirm(false)} style={{ flex: 1, padding: '10px 16px', backgroundColor: '#E5E7EB', color: '#1F2937', border: 'none', borderRadius: '6px', fontWeight: '600', cursor: 'pointer' }}>Cancel</button>
+                    <button onClick={handleDeleteAllData} disabled={loading} style={{ flex: 1, padding: '10px 16px', backgroundColor: '#EF4444', color: 'white', border: 'none', borderRadius: '6px', fontWeight: '600', cursor: loading ? 'not-allowed' : 'pointer' }}>Delete All</button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </main>
       </div>
