@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     const { data: classes, error, count } = await supabase
       .from('online_classes')
       .select('*', { count: 'exact' })
-      .eq('is_deleted', false)
+      .or('is_deleted.eq.false,is_deleted.is.null')
       .order('created_at', { ascending: false })
       .limit(100)
 
