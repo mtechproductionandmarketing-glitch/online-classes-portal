@@ -1,8 +1,13 @@
 import { createClient } from '@supabase/supabase-js'
 
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
+  throw new Error('Missing Supabase environment variables')
+}
+
 const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_ROLE_KEY,
+  { auth: { persistSession: false } }
 )
 
 export async function GET(request: Request) {
@@ -10,10 +15,11 @@ export async function GET(request: Request) {
     console.log('[Admin API] Fetching all classes...')
 
     // Fetch all classes - use service role for full access
+    // Note: Admin endpoint returns all records including soft-deleted ones
+    // Frontend should filter is_deleted records for display
     const query = supabase
       .from('online_classes')
       .select('*', { count: 'exact' })
-      .eq('is_deleted', false)
       .order('created_at', { ascending: false })
       .limit(100)
 
