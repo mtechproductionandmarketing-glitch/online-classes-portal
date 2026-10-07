@@ -9,17 +9,39 @@ export default function CleanupPage() {
 
   const handleDeleteAllData = async () => {
     try {
-      const response = await fetch('/api/admin/delete-all', { method: 'POST' })
+      console.log('Starting delete request...')
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), 30000)
+
+      const response = await fetch('/api/admin/delete-all', {
+        method: 'POST',
+        signal: controller.signal
+      })
+
+      clearTimeout(timeoutId)
+
+      console.log('Response status:', response.status)
       const data = await response.json()
+      console.log('Response data:', data)
 
       if (response.ok) {
-        alert(`✅ SUCCESS! All data deleted.\nRemaining records: ${data.remaining || 0}`)
+        alert(`✅ SUCCESS!\n\nDeleted: ${data.deleted} records\nRemaining: ${data.remaining} records\n\n${data.message}`)
         setShowConfirm(false)
+        window.location.reload()
       } else {
-        alert(`❌ Error: ${data.error}`)
+        alert(`❌ Delete Failed\n\nError: ${data.error}\n\nPlease try again or contact support.`)
       }
     } catch (error) {
-      alert(`❌ Error: ${(error as any).message}`)
+      const errorMsg = (error as any).message || 'Unknown error'
+      console.error('Delete error:', error)
+
+      if (errorMsg.includes('abort')) {
+        alert(`❌ Request Timeout\n\nThe delete operation took too long. Please try again.`)
+      } else if (errorMsg.includes('fetch')) {
+        alert(`❌ Network Error\n\nCould not connect to server. Please check your connection and try again.`)
+      } else {
+        alert(`❌ Error: ${errorMsg}`)
+      }
     } finally {
       setLoading(false)
     }
