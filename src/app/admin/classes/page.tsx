@@ -11,6 +11,7 @@ interface ClassRecord {
   course_title: string
   program: string
   duration_minutes: number
+  is_deleted?: boolean
 }
 
 export default function AllClassesPage() {
@@ -69,6 +70,9 @@ export default function AllClassesPage() {
   }
 
   const filteredClasses = classes.filter(c => {
+    // Filter out soft-deleted records
+    if (c.is_deleted) return false
+
     const matchSearch = c.faculty_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                        c.course_title.toLowerCase().includes(searchTerm.toLowerCase()) ||
                        c.reference_id.toLowerCase().includes(searchTerm.toLowerCase())
@@ -76,7 +80,7 @@ export default function AllClassesPage() {
     return matchSearch && matchProgram
   })
 
-  const programs = [...new Set(classes.map(c => c.program))]
+  const programs = [...new Set(classes.filter(c => !c.is_deleted).map(c => c.program))]
 
   if (!isAuthed) return null
 
