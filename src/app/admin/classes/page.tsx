@@ -18,6 +18,9 @@ export default function AllClassesPage() {
   const [classes, setClasses] = useState<ClassRecord[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [filterProgram, setFilterProgram] = useState('')
+  const [editingId, setEditingId] = useState<string | null>(null)
+  const [deletingId, setDeletingId] = useState<string | null>(null)
+  const [message, setMessage] = useState('')
 
   useEffect(() => {
     const checkAuth = () => {
@@ -41,6 +44,27 @@ export default function AllClassesPage() {
       }
     } catch (error) {
       console.error('Error:', error)
+      setMessage('Failed to load classes')
+    }
+  }
+
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this record?')) return
+
+    try {
+      const response = await fetch(`/api/admin/classes/${id}`, { method: 'DELETE' })
+      if (response.ok) {
+        setClasses(classes.filter(c => c.id !== id))
+        setMessage('✅ Record deleted successfully')
+        setTimeout(() => setMessage(''), 3000)
+      } else {
+        const error = await response.json()
+        setMessage(`❌ Error: ${error.error}`)
+      }
+    } catch (error) {
+      setMessage(`❌ Error: ${(error as any).message}`)
+    } finally {
+      setDeletingId(null)
     }
   }
 
@@ -103,6 +127,19 @@ export default function AllClassesPage() {
           <h1 style={{ fontSize: '28px', fontWeight: '700', color: '#1A1A1A', marginBottom: '8px' }}>All Classes</h1>
           <p style={{ color: '#9CA3AF', marginBottom: '24px' }}>Total: {filteredClasses.length} submissions</p>
 
+          {message && (
+            <div style={{
+              padding: '12px 16px',
+              marginBottom: '16px',
+              borderRadius: '6px',
+              backgroundColor: message.includes('✅') ? '#D1FAE5' : '#FEE2E2',
+              color: message.includes('✅') ? '#065F46' : '#991B1B',
+              border: `1px solid ${message.includes('✅') ? '#6EE7B7' : '#FECACA'}`
+            }}>
+              {message}
+            </div>
+          )}
+
           {/* Filters */}
           <div style={{ display: 'flex', gap: '16px', marginBottom: '24px' }}>
             <input
@@ -153,6 +190,7 @@ export default function AllClassesPage() {
                       <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Course</th>
                       <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Program</th>
                       <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Duration</th>
+                      <th style={{ padding: '12px 16px', textAlign: 'center', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Actions</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -164,6 +202,10 @@ export default function AllClassesPage() {
                         <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{row.course_title}</td>
                         <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{row.program}</td>
                         <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{row.duration_minutes} min</td>
+                        <td style={{ padding: '12px 16px', fontSize: '13px', textAlign: 'center', display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                          <button onClick={() => setEditingId(row.id)} style={{ padding: '4px 8px', backgroundColor: '#3B82F6', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}>✏️ Edit</button>
+                          <button onClick={() => handleDelete(row.id)} style={{ padding: '4px 8px', backgroundColor: '#EF4444', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '12px' }}>🗑️ Delete</button>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
