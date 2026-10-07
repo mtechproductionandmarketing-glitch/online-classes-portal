@@ -7,14 +7,19 @@ const supabase = createClient(
 
 export async function GET(request: Request) {
   try {
-    // Fetch all classes
-    const { data: classes, error } = await supabase
+    console.log('[Admin API] Fetching all classes...')
+
+    // Fetch all classes - use service role for full access
+    const { data: classes, error, count } = await supabase
       .from('online_classes')
-      .select('*')
-      .order('class_date', { ascending: false })
+      .select('*', { count: 'exact' })
+      .order('created_at', { ascending: false })
       .limit(100)
 
+    console.log(`[Admin API] Query result: ${count} total records, error: ${error?.message || 'none'}`)
+
     if (error) {
+      console.error('[Admin API] Error details:', error)
       return Response.json({ error: error.message }, { status: 500 })
     }
 
@@ -30,14 +35,17 @@ export async function GET(request: Request) {
       month: classes?.filter(c => c.class_date >= monthAgo).length || 0
     }
 
+    console.log('[Admin API] Stats:', stats)
+
     return Response.json({
       classes: classes || [],
-      stats
+      stats,
+      debug: { totalRecords: count }
     })
   } catch (error) {
-    console.error('Error fetching classes:', error)
+    console.error('[Admin API] Exception:', error)
     return Response.json(
-      { error: 'Failed to fetch classes' },
+      { error: 'Failed to fetch classes', details: (error as any).message },
       { status: 500 }
     )
   }
