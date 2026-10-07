@@ -16,9 +16,7 @@ export async function GET(request: Request) {
       .order('created_at', { ascending: false })
       .limit(100)
 
-    // Only filter deleted if the field exists and is explicitly true
-    // Include records where is_deleted is null, false, or doesn't exist
-    const { data: classes, error, count } = await query.neq('is_deleted', true)
+    const { data: classes, error, count } = await query
 
     console.log(`[Admin API] Query result: ${count} total records, error: ${error?.message || 'none'}`)
 
