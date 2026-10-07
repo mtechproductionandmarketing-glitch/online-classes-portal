@@ -10,11 +10,15 @@ export async function GET(request: Request) {
     console.log('[Admin API] Fetching all classes...')
 
     // Fetch all classes - use service role for full access
-    const { data: classes, error, count } = await supabase
+    const query = supabase
       .from('online_classes')
       .select('*', { count: 'exact' })
       .order('created_at', { ascending: false })
       .limit(100)
+
+    // Only filter deleted if the field exists and is explicitly true
+    // Include records where is_deleted is null, false, or doesn't exist
+    const { data: classes, error, count } = await query.neq('is_deleted', true)
 
     console.log(`[Admin API] Query result: ${count} total records, error: ${error?.message || 'none'}`)
 
