@@ -38,10 +38,11 @@ export function generateExcelData(classes: OnlineClass[]) {
     'Course': c.course_title,
     'Program': c.program,
     'Batch': c.batch,
+    'Semester': c.semester || '',
     'Section': c.section,
     'Start Time': formatTimeForExcel(c.start_time),
     'Duration (min)': c.duration_minutes,
-    'Teams Link': c.teams_link,
+    'Meeting Link': c.teams_link,
     'Remarks': c.remarks || '',
     'Submitted At': new Date(c.created_at).toLocaleString(),
   }))
@@ -71,6 +72,13 @@ export function generateExcelData(classes: OnlineClass[]) {
     byBatch[c.batch] = (byBatch[c.batch] || 0) + 1
   })
 
+  // Group by semester
+  const bySemester: Record<string, number> = {}
+  classes.forEach(c => {
+    const key = c.semester || 'Not specified'
+    bySemester[key] = (bySemester[key] || 0) + 1
+  })
+
   // Group by section
   const bySection: Record<string, number> = {}
   classes.forEach(c => {
@@ -83,6 +91,7 @@ export function generateExcelData(classes: OnlineClass[]) {
     byProgram,
     byFaculty,
     byBatch,
+    bySemester,
     bySection,
   }
 }
@@ -107,10 +116,11 @@ export async function generateExcelBlob(classes: OnlineClass[]): Promise<Blob> {
     { header: 'Course', key: 'Course', width: 25 },
     { header: 'Program', key: 'Program', width: 12 },
     { header: 'Batch', key: 'Batch', width: 12 },
+    { header: 'Semester', key: 'Semester', width: 14 },
     { header: 'Section', key: 'Section', width: 15 },
     { header: 'Start Time', key: 'Start Time', width: 12 },
     { header: 'Duration (min)', key: 'Duration (min)', width: 14 },
-    { header: 'Teams Link', key: 'Teams Link', width: 30 },
+    { header: 'Meeting Link', key: 'Meeting Link', width: 30 },
     { header: 'Remarks', key: 'Remarks', width: 25 },
     { header: 'Submitted At', key: 'Submitted At', width: 20 },
   ]
@@ -127,7 +137,7 @@ export async function generateExcelBlob(classes: OnlineClass[]): Promise<Blob> {
 
   // Add filter buttons to headers
   recordsSheet.autoFilter.from = 'A1'
-  recordsSheet.autoFilter.to = `L${data.recordsData.length + 1}`
+  recordsSheet.autoFilter.to = `M${data.recordsData.length + 1}`
 
   // Freeze header row
   recordsSheet.views = [{ state: 'frozen', ySplit: 1 }]
@@ -163,6 +173,14 @@ export async function generateExcelBlob(classes: OnlineClass[]): Promise<Blob> {
   summarySheet.addRow(['TOTALS BY BATCH'])
   Object.entries(data.byBatch).forEach(([batch, count]) => {
     summarySheet.addRow([batch, count])
+  })
+
+  summarySheet.addRow([])
+
+  // Totals by semester
+  summarySheet.addRow(['TOTALS BY SEMESTER'])
+  Object.entries(data.bySemester).forEach(([semester, count]) => {
+    summarySheet.addRow([semester, count])
   })
 
   summarySheet.addRow([])

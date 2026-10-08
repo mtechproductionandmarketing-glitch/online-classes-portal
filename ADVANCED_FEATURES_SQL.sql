@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS imported_teachers (
   course TEXT NOT NULL,
   class_time TEXT NOT NULL,
   batch TEXT,
+  semester TEXT,
   section TEXT,
   imported_date TIMESTAMP DEFAULT NOW(),
   created_at TIMESTAMP DEFAULT NOW(),

@@ -104,6 +104,25 @@ export function validateBatch(batch: string): ValidationResult {
   return { valid: errors.length === 0, errors }
 }
 
+export function validateSemester(semester: string): ValidationResult {
+  const errors: ValidationError[] = []
+
+  if (!semester || !semester.trim()) {
+    errors.push({ field: 'semester', message: 'Semester is required' })
+    return { valid: false, errors }
+  }
+
+  const trimmed = semester.trim()
+  if (trimmed.length > 150) {
+    errors.push({
+      field: 'semester',
+      message: 'Semester must not exceed 150 characters'
+    })
+  }
+
+  return { valid: errors.length === 0, errors }
+}
+
 export function validateProgram(program: string): ValidationResult {
   const errors: ValidationError[] = []
 
@@ -184,37 +203,51 @@ export function validateDuration(duration: string): ValidationResult {
   return { valid: errors.length === 0, errors }
 }
 
-export function validateTeamsLink(link: string): ValidationResult {
+/**
+ * Validate a class meeting link. Accepts Teams, Google Meet, Zoom,
+ * Webex, and any other valid HTTPS URL. At least one valid link is required.
+ */
+export function validateMeetingLink(link: string): ValidationResult {
   const errors: ValidationError[] = []
 
-  if (!link) {
-    errors.push({ field: 'teams_link', message: 'MS Teams link is required' })
+  if (!link || !link.trim()) {
+    errors.push({
+      field: 'teams_link',
+      message: 'A meeting/class link is required (Teams, Meet, Zoom, or other HTTPS link)'
+    })
     return { valid: false, errors }
   }
 
   try {
-    const url = new URL(link)
+    const url = new URL(link.trim())
 
     if (url.protocol !== 'https:') {
-      errors.push({ 
-        field: 'teams_link', 
-        message: 'Teams link must use HTTPS' 
+      errors.push({
+        field: 'teams_link',
+        message: 'Meeting link must use HTTPS'
       })
       return { valid: false, errors }
     }
 
-    const hostname = url.hostname
-    if (hostname !== 'teams.microsoft.com' && hostname !== 'teams.live.com') {
-      errors.push({ 
-        field: 'teams_link', 
-        message: 'Teams link must be from teams.microsoft.com or teams.live.com' 
+    if (!url.hostname || url.hostname.indexOf('.') === -1) {
+      errors.push({
+        field: 'teams_link',
+        message: 'Meeting link must be a valid HTTPS URL'
       })
     }
   } catch {
-    errors.push({ field: 'teams_link', message: 'Invalid URL' })
+    errors.push({
+      field: 'teams_link',
+      message: 'Invalid meeting link. Paste a full HTTPS URL (e.g. Teams, Meet, or Zoom)'
+    })
   }
 
   return { valid: errors.length === 0, errors }
+}
+
+/** @deprecated Use validateMeetingLink — kept for compatibility */
+export function validateTeamsLink(link: string): ValidationResult {
+  return validateMeetingLink(link)
 }
 
 export function validateRemarks(remarks: string | null): ValidationResult {
@@ -236,6 +269,7 @@ export function validateFacultySubmission(data: {
   faculty_name: string
   course_title: string
   batch: string
+  semester: string
   program: string
   section: string
   start_time: string
@@ -250,11 +284,12 @@ export function validateFacultySubmission(data: {
     validateFacultyName(data.faculty_name),
     validateCourseTitle(data.course_title),
     validateBatch(data.batch),
+    validateSemester(data.semester),
     validateProgram(data.program),
     validateSection(data.section),
     validateStartTime(data.start_time),
     validateDuration(data.duration_minutes),
-    validateTeamsLink(data.teams_link),
+    validateMeetingLink(data.teams_link),
     validateRemarks(data.remarks),
   ]
 

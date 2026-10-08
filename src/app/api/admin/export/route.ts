@@ -30,7 +30,7 @@ export async function GET() {
 
     // Create CSV with only active records (double-check safety filter)
     const activeClasses = (classes || []).filter(c => !c.is_deleted)
-    const headers = ['Reference ID', 'Date', 'Faculty', 'Course', 'Program', 'Batch', 'Section', 'Start Time', 'Duration', 'Teams Link', 'Remarks']
+    const headers = ['Reference ID', 'Date', 'Faculty', 'Course', 'Program', 'Batch', 'Semester', 'Section', 'Start Time', 'Duration', 'Meeting Link', 'Remarks']
     const rows = activeClasses.map(c => [
       c.reference_id,
       c.class_date,
@@ -38,6 +38,7 @@ export async function GET() {
       c.course_title,
       c.program,
       c.batch,
+      c.semester || '',
       c.section,
       c.start_time,
       c.duration_minutes,

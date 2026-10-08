@@ -6,13 +6,16 @@ CREATE TABLE IF NOT EXISTS online_classes (
   faculty_name VARCHAR(150) NOT NULL CHECK (char_length(trim(faculty_name)) > 0),
   course_title VARCHAR(150) NOT NULL CHECK (char_length(trim(course_title)) > 0),
   batch VARCHAR(150) NOT NULL CHECK (char_length(trim(batch)) > 0),
+  semester VARCHAR(150) NOT NULL CHECK (char_length(trim(semester)) > 0),
   program VARCHAR(150) NOT NULL CHECK (char_length(trim(program)) > 0),
   section VARCHAR(150) NOT NULL CHECK (char_length(trim(section)) > 0),
   start_time TIME NOT NULL,
   duration_minutes SMALLINT NOT NULL CHECK (duration_minutes BETWEEN 1 AND 300),
+  -- Meeting/class link: Teams, Meet, Zoom, or any other valid HTTPS URL
   teams_link TEXT NOT NULL CHECK (
-    teams_link LIKE 'https://teams.microsoft.com/%' OR 
-    teams_link LIKE 'https://teams.live.com/%'
+    teams_link IS NOT NULL
+    AND char_length(trim(teams_link)) > 0
+    AND lower(trim(teams_link)) LIKE 'https://%'
   ),
   remarks VARCHAR(500),
   idempotency_key UUID NOT NULL UNIQUE,

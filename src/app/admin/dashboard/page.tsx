@@ -10,7 +10,10 @@ interface ClassRecord {
   faculty_name: string
   course_title: string
   program: string
+  batch: string
+  semester: string
   duration_minutes: number
+  teams_link: string
 }
 
 export default function AdminDashboard() {
@@ -63,7 +66,7 @@ export default function AdminDashboard() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('/api/admin/classes')
+      const response = await fetch('/api/admin/classes', { cache: 'no-store' })
 
       if (response.ok) {
         const data = await response.json()
@@ -219,17 +222,21 @@ export default function AdminDashboard() {
                       <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Faculty</th>
                       <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Course</th>
                       <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Program</th>
+                      <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Batch</th>
+                      <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Semester</th>
                       <th style={{ padding: '12px 16px', textAlign: 'left', fontSize: '12px', fontWeight: '600', color: '#4B5563' }}>Duration</th>
                     </tr>
                   </thead>
                   <tbody>
                     {classes.slice(0, 10).map((row, i) => (
-                      <tr key={i} style={{ borderBottom: '1px solid #E8EAEF', backgroundColor: i % 2 === 0 ? '#FAFBFC' : 'white' }}>
+                      <tr key={row.id || i} style={{ borderBottom: '1px solid #E8EAEF', backgroundColor: i % 2 === 0 ? '#FAFBFC' : 'white' }}>
                         <td style={{ padding: '12px 16px', fontSize: '13px', color: '#2C5AA0', fontWeight: '600' }}>{row.reference_id}</td>
                         <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{new Date(row.class_date).toLocaleDateString()}</td>
                         <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{row.faculty_name}</td>
                         <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{row.course_title}</td>
                         <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{row.program}</td>
+                        <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{row.batch || '—'}</td>
+                        <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{row.semester || '—'}</td>
                         <td style={{ padding: '12px 16px', fontSize: '13px', color: '#4B5563' }}>{row.duration_minutes} min</td>
                       </tr>
                     ))}

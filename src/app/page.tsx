@@ -50,7 +50,7 @@ export default function Home() {
             Submit your online class record
           </h1>
           <p style={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '16px', lineHeight: '1.6' }}>
-            No login needed. Fill in the class details, paste the MS Teams link, and you will get a Reference ID once it is saved.
+            No login needed. Fill in the class details, paste a meeting link (Teams, Meet, Zoom, or other), and you will get a Reference ID once it is saved.
           </p>
         </div>
       </section>

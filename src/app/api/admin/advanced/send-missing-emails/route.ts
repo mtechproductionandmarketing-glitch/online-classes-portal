@@ -18,6 +18,7 @@ interface Teacher {
   course: string
   class_time: string
   batch: string
+  semester?: string
   section: string
 }
 
@@ -156,6 +157,7 @@ async function generatePersonalizedEmail(template: string, teacher: Teacher): Pr
     .replace(/{course_title}/g, teacher.course)
     .replace(/{class_time}/g, teacher.class_time)
     .replace(/{batch}/g, teacher.batch)
+    .replace(/{semester}/g, teacher.semester || '')
     .replace(/{section}/g, teacher.section)
 
   // Optionally enhance with Claude if you want more personalization
