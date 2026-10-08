@@ -12,12 +12,14 @@ const supabase = createClient(
 
 export async function GET() {
   try {
-    // Fetch only active (non-deleted) records per SRS FR-10
-    const { data: classes, error } = await supabase
+    // Fetch all records and filter deleted records in backend per SRS FR-10
+    const { data: allClasses, error } = await supabase
       .from('online_classes')
       .select('*')
-      .neq('is_deleted', true)
       .order('class_date', { ascending: false })
+
+    // Filter out soft-deleted records in backend
+    const classes = (allClasses || []).filter(c => !c.is_deleted)
 
     if (error) {
       return Response.json({ error: error.message }, { status: 500 })

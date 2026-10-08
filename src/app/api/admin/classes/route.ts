@@ -14,18 +14,19 @@ export async function GET(request: Request) {
   try {
     console.log('[Admin API] Fetching all classes...')
 
-    // Fetch only active (non-deleted) classes per SRS FR-09
-    // Soft-deleted records excluded from all admin views
+    // Fetch all records and filter deleted records in backend per SRS FR-09
     const query = supabase
       .from('online_classes')
       .select('*', { count: 'exact' })
-      .neq('is_deleted', true)
       .order('created_at', { ascending: false })
       .limit(100)
 
-    const { data: classes, error, count } = await query
+    const { data: allClasses, error, count: totalCount } = await query
 
-    console.log(`[Admin API] Query result: ${count} total records, error: ${error?.message || 'none'}`)
+    // Filter out soft-deleted records in backend
+    const classes = (allClasses || []).filter(c => !c.is_deleted)
+
+    console.log(`[Admin API] Query result: ${classes.length} active records (${totalCount} total in DB), error: ${error?.message || 'none'}`)
 
     if (error) {
       console.error('[Admin API] Error details:', error)
@@ -52,7 +53,7 @@ export async function GET(request: Request) {
     return Response.json({
       classes: classes || [],
       stats,
-      debug: { totalRecords: count }
+      debug: { totalRecords: totalCount, filteredRecords: classes.length }
     })
   } catch (error) {
     console.error('[Admin API] Exception:', error)
