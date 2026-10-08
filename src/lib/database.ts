@@ -7,6 +7,7 @@ export interface OnlineClass {
   faculty_name: string
   course_title: string
   batch: string
+  semester: string
   program: string
   section: string
   start_time: string
@@ -37,6 +38,7 @@ export interface FilterOptions {
   course?: string
   program?: string
   batch?: string
+  semester?: string
   section?: string
   search?: string
   sortBy?: string
@@ -74,6 +76,9 @@ export async function getClasses(
     }
     if (filters.batch) {
       query = query.eq('batch', filters.batch)
+    }
+    if (filters.semester) {
+      query = query.eq('semester', filters.semester)
     }
     if (filters.section) {
       query = query.eq('section', filters.section)
@@ -168,6 +173,7 @@ export async function deleteClass(id: string): Promise<{ success: boolean; error
         deleted_at: new Date().toISOString(),
       })
       .eq('id', id)
+      .eq('is_deleted', false)
 
     if (error) {
       return { success: false, error: error.message }
@@ -246,11 +252,12 @@ export async function getDashboardStats() {
     // Get distinct counts
     const { data: distinct } = await supabase
       .from('active_online_classes')
-      .select('faculty_name, program, batch, section')
+      .select('faculty_name, program, batch, semester, section')
 
     const uniqueFaculty = new Set(distinct?.map(d => d.faculty_name) || [])
     const uniquePrograms = new Set(distinct?.map(d => d.program) || [])
     const uniqueBatches = new Set(distinct?.map(d => d.batch) || [])
+    const uniqueSemesters = new Set(distinct?.map(d => d.semester).filter(Boolean) || [])
     const uniqueSections = new Set(distinct?.map(d => d.section) || [])
 
     return {
@@ -261,6 +268,7 @@ export async function getDashboardStats() {
       totalFaculty: uniqueFaculty.size,
       totalPrograms: uniquePrograms.size,
       totalBatches: uniqueBatches.size,
+      totalSemesters: uniqueSemesters.size,
       totalSections: uniqueSections.size,
     }
   } catch (error) {

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { getClasses, getDashboardStats, OnlineClass, FilterOptions, PaginatedResult } from '@/lib/database'
 
-export interface UseCl assesResult {
+export interface UseClassesResult {
   classes: OnlineClass[]
   loading: boolean
   error: string | null
@@ -28,6 +28,7 @@ export interface UseDashboardStatsResult {
     totalFaculty: number
     totalPrograms: number
     totalBatches: number
+    totalSemesters: number
     totalSections: number
   } | null
   loading: boolean
@@ -38,7 +39,7 @@ export interface UseDashboardStatsResult {
 /**
  * Custom hook for fetching classes with pagination and filtering
  */
-export function useClasses(initialFilters: FilterOptions = {}): UseCl assesResult {
+export function useClasses(initialFilters: FilterOptions = {}): UseClassesResult {
   const [classes, setClasses] = useState<OnlineClass[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)

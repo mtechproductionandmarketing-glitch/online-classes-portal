@@ -37,8 +37,22 @@ export async function POST(request: Request) {
     if (missingFields.length > 0) {
       console.log('Missing fields:', missingFields)
       return Response.json({
-        error: `Missing required columns: ${missingFields.join(', ')}. Required: Teacher Name, Teacher Email, Teacher Title, Course Title, Class Time, Batch, Section`
+        error: `Missing required columns: ${missingFields.join(', ')}. Required: Teacher Name, Teacher Email, Teacher Title, Course Title, Class Time, Batch, Section. Optional: Semester`
       }, { status: 400 })
+    }
+
+    const findCol = (aliases: string[]) =>
+      headers.findIndex(h => aliases.some(a => h.replace(/ /g, '') === a.replace(/ /g, '')))
+
+    const idx = {
+      name: findCol(['teacher name', 'name']),
+      email: findCol(['teacher email', 'email']),
+      title: findCol(['teacher title', 'title']),
+      course: findCol(['course title', 'course']),
+      class_time: findCol(['class time', 'time']),
+      batch: findCol(['batch']),
+      semester: findCol(['semester']),
+      section: findCol(['section']),
     }
 
     // Clear old teachers data
@@ -52,13 +66,14 @@ export async function POST(request: Request) {
       if (values.length < 7) continue
 
       const teacherData = {
-        name: values[0],
-        email: values[1],
-        title: values[2],
-        course: values[3],
-        class_time: values[4],
-        batch: values[5],
-        section: values[6],
+        name: values[idx.name] || values[0],
+        email: values[idx.email] || values[1],
+        title: values[idx.title] || values[2],
+        course: values[idx.course] || values[3],
+        class_time: values[idx.class_time] || values[4],
+        batch: values[idx.batch] || values[5],
+        semester: idx.semester >= 0 ? (values[idx.semester] || '') : '',
+        section: values[idx.section] || values[6],
         imported_date: new Date().toISOString()
       }
 

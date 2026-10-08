@@ -9,7 +9,7 @@ export default function EmailTemplatesPage() {
     `Dear {teacher_name},
 
 You were scheduled to teach {course_title} at {class_time} on Friday.
-Class: {batch} - {section}
+Class: {batch} / {semester} - {section}
 
 We noticed that you haven't submitted the class record yet. Please submit it as soon as possible.
 
@@ -61,7 +61,7 @@ School of Computing Sciences`
           <div style={{ backgroundColor: 'white', padding: '32px', borderRadius: '8px', border: '1px solid #E8EAEF' }}>
             <div style={{ marginBottom: '24px', padding: '16px', backgroundColor: '#FEF3C7', borderRadius: '6px', border: '1px solid #FCD34D' }}>
               <p style={{ fontSize: '14px', color: '#92400E', margin: '0' }}>
-                <strong>Available Variables:</strong> {'{teacher_name}'}, {'{course_title}'}, {'{class_time}'}, {'{batch}'}, {'{section}'}
+                <strong>Available Variables:</strong> {'{teacher_name}'}, {'{course_title}'}, {'{class_time}'}, {'{batch}'}, {'{semester}'}, {'{section}'}
               </p>
             </div>
 

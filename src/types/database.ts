@@ -152,6 +152,7 @@ export type Database = {
           p_faculty_name: string
           p_course_title: string
           p_batch: string
+          p_semester: string
           p_program: string
           p_section: string
           p_start_time: string

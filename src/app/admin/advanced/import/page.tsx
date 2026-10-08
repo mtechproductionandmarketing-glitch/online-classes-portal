@@ -87,6 +87,7 @@ export default function ImportPage() {
                 <li>Course Title</li>
                 <li>Class Time (9 AM - 5 PM)</li>
                 <li>Batch</li>
+                <li>Semester (optional)</li>
                 <li>Section</li>
               </ul>
             </div>

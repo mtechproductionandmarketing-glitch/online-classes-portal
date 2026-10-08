@@ -11,6 +11,7 @@ interface Teacher {
   course: string
   class_time: string
   batch: string
+  semester?: string
   section: string
 }
 
@@ -106,6 +107,8 @@ export default function TeachersPage() {
                       <th style={{ textAlign: 'left', padding: '12px', fontWeight: '600', color: '#374151' }}>Name</th>
                       <th style={{ textAlign: 'left', padding: '12px', fontWeight: '600', color: '#374151' }}>Email</th>
                       <th style={{ textAlign: 'left', padding: '12px', fontWeight: '600', color: '#374151' }}>Course</th>
+                      <th style={{ textAlign: 'left', padding: '12px', fontWeight: '600', color: '#374151' }}>Batch</th>
+                      <th style={{ textAlign: 'left', padding: '12px', fontWeight: '600', color: '#374151' }}>Semester</th>
                       <th style={{ textAlign: 'left', padding: '12px', fontWeight: '600', color: '#374151' }}>Time</th>
                       <th style={{ textAlign: 'left', padding: '12px', fontWeight: '600', color: '#374151' }}>Actions</th>
                     </tr>
@@ -116,6 +119,8 @@ export default function TeachersPage() {
                         <td style={{ padding: '12px', color: '#1A1A1A' }}>{teacher.name}</td>
                         <td style={{ padding: '12px', color: '#1A1A1A', fontSize: '12px' }}>{teacher.email}</td>
                         <td style={{ padding: '12px', color: '#1A1A1A' }}>{teacher.course}</td>
+                        <td style={{ padding: '12px', color: '#1A1A1A' }}>{teacher.batch || '—'}</td>
+                        <td style={{ padding: '12px', color: '#1A1A1A' }}>{teacher.semester || '—'}</td>
                         <td style={{ padding: '12px', color: '#1A1A1A' }}>{teacher.class_time}</td>
                         <td style={{ padding: '12px' }}>
                           <button

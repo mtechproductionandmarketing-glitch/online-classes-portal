@@ -17,6 +17,7 @@ export default function FacultyForm() {
     faculty_name: '',
     course_title: '',
     batch: '',
+    semester: '',
     program: '',
     section: '',
     start_time: '',
@@ -254,9 +255,32 @@ export default function FacultyForm() {
                 fontSize: '14px',
                 fontFamily: 'inherit',
               }}
-              placeholder="e.g. Fall 2024"
+              placeholder="e.g. 2024, BCS-F24"
             />
             {errors.batch && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.batch}</p>}
+          </div>
+
+          <div>
+            <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
+              Semester
+            </label>
+            <input
+              type="text"
+              name="semester"
+              value={formData.semester}
+              onChange={handleChange}
+              disabled={isSubmitting}
+              style={{
+                width: '100%',
+                padding: '10px 12px',
+                border: `2px solid ${errors.semester ? '#EF4444' : '#D1D5DB'}`,
+                borderRadius: '6px',
+                fontSize: '14px',
+                fontFamily: 'inherit',
+              }}
+              placeholder="e.g. Fall 2024, Spring 2025"
+            />
+            {errors.semester && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.semester}</p>}
           </div>
 
           <div>
@@ -287,18 +311,19 @@ export default function FacultyForm() {
       {/* Section 3: Meeting link */}
       <div style={{ marginBottom: '32px' }}>
         <h2 style={{ fontSize: '20px', fontWeight: '700', color: '#2C5AA0', marginBottom: '24px' }}>
-          3. Meeting link
+          3. Meeting / class link
         </h2>
         <div style={{ marginBottom: '16px' }}>
           <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: '#374151', marginBottom: '8px' }}>
-            MS Teams link
+            Meeting link <span style={{ fontWeight: '400', color: '#9CA3AF' }}>(required)</span>
           </label>
           <input
-            type="text"
+            type="url"
             name="teams_link"
             value={formData.teams_link}
             onChange={handleChange}
             disabled={isSubmitting}
+            required
             style={{
               width: '100%',
               padding: '10px 12px',
@@ -307,10 +332,10 @@ export default function FacultyForm() {
               fontSize: '14px',
               fontFamily: 'inherit',
             }}
-            placeholder="https://teams.microsoft.com/l/meetup-join/..."
+            placeholder="https://teams.microsoft.com/... or meet.google.com/... or zoom.us/..."
           />
           <p style={{ marginTop: '6px', fontSize: '12px', color: '#6B7280' }}>
-            Paste the full link of the class meeting. Only the link is needed, no recording.
+            Paste a full HTTPS meeting link (Microsoft Teams, Google Meet, Zoom, or any other class link). At least one valid link is required.
           </p>
           {errors.teams_link && <p style={{ marginTop: '6px', fontSize: '12px', color: '#DC2626' }}>{errors.teams_link}</p>}
         </div>
@@ -351,6 +376,7 @@ export default function FacultyForm() {
               faculty_name: '',
               course_title: '',
               batch: '',
+              semester: '',
               program: '',
               section: '',
               start_time: '',
