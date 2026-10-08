@@ -14,12 +14,12 @@ export async function GET(request: Request) {
   try {
     console.log('[Admin API] Fetching all classes...')
 
-    // Fetch all classes - use service role for full access
-    // Note: Admin endpoint returns all records including soft-deleted ones
-    // Frontend should filter is_deleted records for display
+    // Fetch only active (non-deleted) classes per SRS FR-09
+    // Soft-deleted records excluded from all admin views
     const query = supabase
       .from('online_classes')
       .select('*', { count: 'exact' })
+      .neq('is_deleted', true)
       .order('created_at', { ascending: false })
       .limit(100)
 
@@ -32,16 +32,19 @@ export async function GET(request: Request) {
       return Response.json({ error: error.message }, { status: 500 })
     }
 
-    // Calculate statistics
+    // Calculate statistics (only for active records, per SRS FR-09)
     const today = new Date().toISOString().split('T')[0]
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
     const monthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
 
+    // Double-check: filter out any deleted records (safety check)
+    const activeRecords = classes?.filter(c => !c.is_deleted) || []
+
     const stats = {
-      total: classes?.length || 0,
-      today: classes?.filter(c => c.class_date === today).length || 0,
-      week: classes?.filter(c => c.class_date >= weekAgo).length || 0,
-      month: classes?.filter(c => c.class_date >= monthAgo).length || 0
+      total: activeRecords.length,
+      today: activeRecords.filter(c => c.class_date === today).length,
+      week: activeRecords.filter(c => c.class_date >= weekAgo).length,
+      month: activeRecords.filter(c => c.class_date >= monthAgo).length
     }
 
     console.log('[Admin API] Stats:', stats)

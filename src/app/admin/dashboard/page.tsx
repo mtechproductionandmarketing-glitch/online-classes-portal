@@ -48,6 +48,14 @@ export default function AdminDashboard() {
 
       setIsAuthed(true)
       fetchData()
+
+      // Auto-refresh every 30 seconds per SRS FR-03 (within 60 seconds requirement)
+      const interval = setInterval(() => {
+        console.log('[Admin Dashboard] Auto-refreshing statistics...')
+        fetchData()
+      }, 30000)
+
+      return () => clearInterval(interval)
     }
 
     checkAuth()
