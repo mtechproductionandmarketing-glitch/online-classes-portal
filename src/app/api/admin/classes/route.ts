@@ -1,5 +1,9 @@
 import { createClient } from '@supabase/supabase-js'
 
+// Next.js 14 caches fetch() calls made by supabase-js, which served stale records
+export const dynamic = 'force-dynamic'
+export const fetchCache = 'force-no-store'
+
 if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) {
   throw new Error('Missing Supabase environment variables')
 }
